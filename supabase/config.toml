@@ -1,0 +1,16 @@
+project_id = "icare-u-peka"
+
+[auth.email]
+enable_signup = false
+enable_confirmations = true
+otp_length = 6
+otp_expiry = 600
+
+[functions.quiz-session]
+verify_jwt = false
+
+[functions.quiz-completion-email]
+verify_jwt = false
+
+[functions.quiz-admin-report]
+verify_jwt = true
