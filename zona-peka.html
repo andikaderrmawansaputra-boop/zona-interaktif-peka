@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b2242">
+  <title>Zona Interaktif PeKA | I CARE U BI Jawa Timur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="zona-peka.css">
+  <script src="zona-peka-config.js" defer></script>
+  <script src="zona-peka-questions.js" defer></script>
+  <script src="zona-peka.js" defer></script>
+</head>
+<body>
+  <header class="zona-header">
+    <a class="zona-brand" href="peka.html" aria-label="Kembali ke halaman PeKA">
+      <img src="BI_Logo.png" alt="Bank Indonesia">
+      <span class="zona-brand-copy">I CARE U<span>Bank Indonesia Jawa Timur</span></span>
+    </a>
+    <a class="zona-back" href="peka.html">&larr; Kembali ke PeKA</a>
+  </header>
+
+  <main class="zona-main">
+    <section class="zona-intro" aria-labelledby="page-title">
+      <span class="zona-eyebrow">Zona Interaktif PeKA</span>
+      <h1 id="page-title">Siap menguji pemahaman?</h1>
+      <p>Jawab soal satu per satu. Setiap soal memiliki waktu 60 detik.</p>
+      <p class="zona-source">Pre-test mengikuti urutan dokumen; urutan 30 soal pada Post-test diacak untuk setiap sesi baru.</p>
+    </section>
+
+    <section id="setup-panel" class="zona-card" aria-labelledby="setup-title">
+      <div class="zona-notice" role="note">
+        <strong id="storage-mode-label">Memeriksa konfigurasi:</strong>
+        <span id="storage-mode-message">layanan penyimpanan peserta belum dikonfigurasi. Jangan gunakan data pribadi nyata. Identitas dan jawaban hanya dipakai sementara di halaman ini, tidak dikirim ke server dan tidak disimpan setelah halaman ditutup.</span>
+      </div>
+
+      <h2 id="setup-title" class="zona-section-title">Pilih sesi tes</h2>
+      <div class="zona-choice-grid" role="radiogroup" aria-label="Jenis tes">
+        <div class="zona-choice">
+          <input type="radio" id="test-pre" name="quiz-type" value="PRE_TEST" checked>
+          <label for="test-pre"><span class="zona-choice-mark">01</span><span class="zona-choice-copy"><strong>Pre-test</strong><small>Pengukuran awal</small></span></label>
+        </div>
+        <div class="zona-choice">
+          <input type="radio" id="test-post" name="quiz-type" value="POST_TEST">
+          <label for="test-post"><span class="zona-choice-mark">02</span><span class="zona-choice-copy"><strong>Post-test</strong><small>Pengukuran setelah materi</small></span></label>
+        </div>
+      </div>
+
+      <p class="zona-fixed-duration"><span aria-hidden="true">◷</span> 60 detik untuk setiap soal</p>
+
+      <form id="participant-form" class="zona-form" novalidate>
+        <div class="zona-field">
+          <label for="participant-name">Nama lengkap <span aria-hidden="true">*</span></label>
+          <input id="participant-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="120" required>
+          <span class="zona-error" id="name-error"></span>
+        </div>
+        <div class="zona-field">
+          <label for="participant-email">Email <span aria-hidden="true">*</span></label>
+          <input id="participant-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <span class="zona-error" id="email-error"></span>
+        </div>
+        <div class="zona-field">
+          <label for="participant-institution">Lembaga/instansi <span aria-hidden="true">*</span></label>
+          <input id="participant-institution" name="institution" type="text" autocomplete="organization" minlength="2" maxlength="160" required>
+          <span class="zona-error" id="institution-error"></span>
+        </div>
+        <p id="participant-data-notice" class="zona-consent">Mode pratinjau: data identitas dan jawaban tidak dikirim ke server atau disimpan setelah halaman ditutup. Jangan gunakan data pribadi nyata.</p>
+        <button class="zona-primary" type="submit">Lanjutkan <span aria-hidden="true">&rarr;</span></button>
+      </form>
+
+      <section id="identity-review" class="zona-form zona-hidden" aria-labelledby="identity-review-title">
+        <h3 id="identity-review-title">Konfirmasi identitas peserta</h3>
+        <dl class="zona-identity-summary">
+          <div><dt>Nama lengkap</dt><dd id="review-name"></dd></div>
+          <div><dt>Email</dt><dd id="review-email"></dd></div>
+          <div><dt>Lembaga/instansi</dt><dd id="review-institution"></dd></div>
+          <div><dt>Jenis tes</dt><dd id="review-test-type"></dd></div>
+        </dl>
+        <p class="zona-consent">Periksa kembali data sebelum tes dimulai. Email tidak diverifikasi melalui OTP.</p>
+        <p id="start-status" class="zona-admin-status" role="status" aria-live="polite"></p>
+        <button id="confirm-start" class="zona-primary" type="button">Konfirmasi dan Mulai Tes</button>
+        <button id="edit-identity" class="zona-secondary" type="button">Kembali mengedit data</button>
+      </section>
+    </section>
+
+    <section id="quiz-panel" class="zona-card zona-hidden" aria-label="Kuis PeKA">
+      <div class="zona-quiz-head">
+        <span id="quiz-type-label" class="zona-test-label"></span>
+        <div id="timer" class="zona-timer" role="timer" aria-label="Sisa waktu">01:00</div>
+      </div>
+      <div class="zona-progress-copy">
+        <span id="question-count"></span>
+        <span id="question-percent"></span>
+      </div>
+      <div class="zona-progress" role="progressbar" aria-label="Progres soal" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0">
+        <span id="progress-bar"></span>
+      </div>
+      <div id="question-content" class="zona-enter">
+        <h2 id="question-text" class="zona-question" tabindex="-1"></h2>
+        <div id="answer-options" class="zona-answer-grid"></div>
+      </div>
+      <div id="quiz-status" class="zona-live-status" role="status" aria-live="polite"></div>
+      <div class="zona-footer-actions">
+        <button id="sync-session" class="zona-secondary zona-hidden" type="button">Sinkronkan sesi</button>
+        <button id="exit-quiz" class="zona-secondary" type="button">Keluar dari sesi</button>
+      </div>
+    </section>
+
+    <section id="complete-panel" class="zona-card zona-complete zona-hidden" aria-labelledby="complete-title" role="status">
+      <div class="zona-complete-mark" aria-hidden="true">&#10003;</div>
+      <h2 id="complete-title">Sesi selesai</h2>
+      <p id="complete-message">Mode pratinjau ini tidak menyimpan data peserta maupun jawaban.</p>
+      <p id="complete-email-status" class="zona-consent" role="status" aria-live="polite"></p>
+      <button id="retry-completion-email" class="zona-secondary zona-hidden" type="button">Coba kirim ulang email konfirmasi</button>
+      <button id="restart-quiz" class="zona-primary" type="button">Kembali ke awal</button>
+    </section>
+  </main>
+</body>
+</html>
