@@ -1,0 +1,3032 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ICARE QRIS — Bank Indonesia Jawa Timur</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --navy: #062653;
+    --navy-dark: #041b3c;
+    --navy-light: #0b3976;
+
+    --blue: #1266b1;
+    --cyan: #12b9c5;
+    --cyan-light: #62e0e4;
+
+    --gold: #f4c542;
+    --gold-dark: #c99b16;
+
+    --white: #ffffff;
+    --bg: #f4f7fb;
+
+    --text: #172a43;
+    --muted: #66758a;
+
+    --line: #dce5ef;
+
+    --green: #16805a;
+    --red: #c43d3d;
+
+    --shadow: 0 10px 35px rgba(17, 48, 83, .08);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.nav {
+    height: 76px;
+
+    background: rgba(6, 38, 83, .98);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    border-bottom: 1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(12px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.bi-logo {
+    width: 145px;
+    max-height: 50px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.brand-divider {
+    width: 1px;
+    height: 35px;
+    background: rgba(255,255,255,.25);
+}
+
+.brand-text {
+    color: white;
+}
+
+.brand-name {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .04em;
+}
+
+.brand-sub {
+    display: block;
+    color: #aac5df;
+    font-size: 9px;
+    letter-spacing: .03em;
+}
+
+.navlinks {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+}
+
+.navlinks a {
+    color: #d9e7f5;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.navlinks a:hover {
+    color: white;
+}
+
+.nav-quiz {
+    padding: 10px 18px;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--blue)
+    );
+
+    color: white !important;
+
+    box-shadow:
+        0 5px 15px rgba(18,102,177,.25);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+
+    padding: 80px 7% 75px;
+
+    color: white;
+
+    background:
+
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(18,185,197,.25),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(18,102,177,.28),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            125deg,
+            #062653 0%,
+            #0a3978 58%,
+            #0b7484 100%
+        );
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -280px;
+    bottom: -350px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    box-shadow:
+        0 0 0 70px rgba(255,255,255,.025),
+        0 0 0 140px rgba(255,255,255,.018),
+        0 0 0 210px rgba(255,255,255,.012);
+}
+
+.hero-content {
+    width: min(1120px, 90%);
+    margin: auto;
+
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: inline-flex;
+    padding: 7px 15px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.1);
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    color: #d9f0f3;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .1em;
+    text-transform: uppercase;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    max-width: 760px;
+
+    font-size: clamp(38px, 5vw, 58px);
+
+    line-height: 1.08;
+
+    letter-spacing: -.04em;
+}
+
+.hero h1 span {
+    color: var(--cyan-light);
+}
+
+.hero p {
+    max-width: 650px;
+
+    margin: 20px 0 26px;
+
+    color: #c5d8ea;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+.hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pill {
+    padding: 9px 15px;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.09);
+
+    border: 1px solid rgba(255,255,255,.16);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #edf8ff;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+    width: min(1120px, 90%);
+    margin: auto;
+}
+
+.section {
+    padding: 55px 0;
+}
+
+.section-head {
+    margin-bottom: 24px;
+}
+
+.kicker {
+    color: var(--cyan);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+}
+
+.title {
+    margin-top: 5px;
+
+    color: var(--navy);
+
+    font-size: 28px;
+
+    line-height: 1.25;
+}
+
+.subtitle {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MATERI
+========================================================= */
+
+.topic-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 17px;
+}
+
+.card {
+    background: white;
+
+    border: 1px solid var(--line);
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 5px 18px rgba(17,48,83,.04);
+
+    transition: .25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow);
+}
+
+.topic {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 17px;
+}
+
+.topic-icon {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    border-radius: 16px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e8f9fa,
+            #dceefe
+        );
+
+    color: var(--blue);
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.topic h3 {
+    color: var(--navy);
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.topic p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.card-action {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 17px;
+
+    padding-top: 13px;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info-box {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.info-item {
+    background: white;
+
+    border: 1px solid var(--line);
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    text-align: center;
+}
+
+.info-icon {
+    font-size: 27px;
+
+    margin-bottom: 7px;
+}
+
+.info-item h3 {
+    color: var(--navy);
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.info-item p {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   QUIZ BANNER
+========================================================= */
+
+.quiz-banner {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 19px;
+
+    padding: 38px;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            115deg,
+            #062653,
+            #0b4d8b 60%,
+            #0b8791
+        );
+}
+
+.quiz-banner::after {
+    content: "?";
+
+    position: absolute;
+
+    right: 45px;
+    top: -45px;
+
+    color: rgba(255,255,255,.055);
+
+    font-size: 220px;
+
+    font-weight: 800;
+
+    transform: rotate(8deg);
+}
+
+.quiz-content {
+    max-width: 680px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.quiz-banner h2 {
+    margin: 6px 0;
+
+    font-size: 27px;
+}
+
+.quiz-banner p {
+    margin-bottom: 20px;
+
+    color: #c8dced;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.primary {
+    border: 0;
+    padding: 12px 21px;
+    border-radius: 9px;
+    background:
+        linear-gradient(
+            135deg,
+            #0bc2ce,
+            #1683d1
+        );
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.17);
+
+    transition: .2s;
+}
+
+.primary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.22);
+}
+
+.primary:disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.secondary {
+    border: 1px solid var(--line);
+
+    background: white;
+
+    color: var(--navy);
+
+    border-radius: 9px;
+
+    padding: 11px 18px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    margin-top: 15px;
+
+    padding: 35px 5%;
+
+    background: #062653;
+
+    color: #aac1d9;
+}
+
+.footer-inner {
+    width: min(1120px, 90%);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.6fr 1fr 1fr;
+
+    gap: 40px;
+}
+
+footer h3 {
+    margin-bottom: 8px;
+
+    color: white;
+
+    font-size: 17px;
+}
+
+footer h4 {
+    margin-bottom: 8px;
+
+    color: white;
+
+    font-size: 11px;
+}
+
+footer p {
+    font-size: 10px;
+
+    line-height: 1.8;
+}
+
+footer a {
+    color: #aac1d9;
+
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.copyright {
+    width: min(1120px, 90%);
+
+    margin: 25px auto 0;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(255,255,255,.1);
+
+    text-align: center;
+
+    color: #718ca9;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(3,18,38,.78);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: min(720px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 19px;
+    background: white;
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.3);
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.modal h2 {
+    color: var(--navy);
+    font-size: 21px;
+}
+
+.close {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #edf3f7;
+    color: var(--muted);
+    font-size: 21px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   NAME FORM
+========================================================= */
+
+.name-form {
+    padding: 15px 0 5px;
+}
+
+.name-form-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 5px auto 18px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background: #eaf6fb;
+
+    color: var(--blue);
+
+    font-size: 30px;
+}
+
+.name-form h2 {
+    text-align: center;
+
+    margin-bottom: 8px;
+}
+
+.name-form p {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 22px;
+}
+
+.input-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--navy);
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.name-input {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    transition: .2s;
+}
+
+.name-input:focus {
+    border-color: var(--cyan);
+
+    box-shadow:
+        0 0 0 3px rgba(18,185,197,.1);
+}
+
+.form-button {
+    width: 100%;
+
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.question-count {
+    color: var(--cyan);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: .09em;
+
+    text-transform: uppercase;
+}
+
+.question {
+    margin: 8px 0 20px;
+
+    color: var(--navy);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+.options {
+    display: grid;
+
+    gap: 10px;
+}
+
+.option {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 11px;
+
+    background: white;
+
+    color: var(--text);
+
+    text-align: left;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.option:hover {
+    border-color: var(--cyan);
+
+    background: #f2fcfd;
+}
+
+.option.selected {
+    border-color: var(--blue);
+
+    background: #eaf4ff;
+
+    box-shadow:
+        0 0 0 2px rgba(18,102,177,.08);
+}
+
+.progress {
+    height: 6px;
+
+    margin-top: 22px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #e9eff5;
+}
+
+.progress-bar {
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--cyan),
+            var(--blue)
+        );
+
+    transition: .3s;
+}
+
+.quiz-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result {
+    padding: 15px;
+
+    text-align: center;
+}
+
+.result-icon {
+    width: 78px;
+    height: 78px;
+
+    margin: 10px auto 15px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    font-size: 38px;
+
+    font-weight: 800;
+}
+
+.result-icon.pass {
+    background: #e6f7ef;
+
+    color: var(--green);
+}
+
+.result-icon.fail {
+    background: #fff0f0;
+
+    color: var(--red);
+}
+
+.score {
+    margin: 10px;
+
+    color: var(--navy);
+
+    font-size: 54px;
+
+    font-weight: 800;
+}
+
+.pass-text {
+    color: var(--green);
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.fail-text {
+    color: var(--red);
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.result-description {
+    margin: 12px auto 22px;
+
+    max-width: 450px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.result-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+.certificate-wrapper {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background: #eef2f6;
+
+    padding: 30px;
+
+    overflow-y: auto;
+}
+
+.certificate-wrapper.show {
+    display: block;
+}
+
+.certificate {
+    width: min(1000px, 100%);
+
+    min-height: 700px;
+
+    margin: 0 auto;
+
+    padding: 55px;
+
+    position: relative;
+
+    background: white;
+
+    border: 12px solid var(--navy);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.18);
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.certificate::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 18px;
+
+    border: 2px solid var(--gold);
+
+    pointer-events: none;
+}
+
+.certificate::after {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(18,102,177,.08);
+
+    top: -170px;
+    right: -120px;
+}
+
+.certificate-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.certificate-logo {
+    width: 210px;
+
+    max-height: 80px;
+
+    object-fit: contain;
+
+    margin-bottom: 15px;
+}
+
+.certificate-org {
+    color: var(--navy);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+.certificate-title {
+    margin-top: 40px;
+
+    color: var(--navy);
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+.certificate-subtitle {
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.certificate-name {
+    margin: 35px 0 12px;
+
+    color: var(--blue);
+
+    font-size: 36px;
+
+    font-weight: 800;
+}
+
+.certificate-text {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+.certificate-score {
+    margin-top: 25px;
+
+    display: inline-block;
+
+    padding: 10px 22px;
+
+    border-radius: 30px;
+
+    background: #eaf6fb;
+
+    color: var(--blue);
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.certificate-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-top: 55px;
+
+    padding: 0 40px;
+}
+
+.certificate-date {
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.signature {
+    min-width: 220px;
+
+    color: var(--navy);
+
+    font-size: 11px;
+}
+
+.signature-line {
+    width: 220px;
+
+    margin: 35px auto 7px;
+
+    border-top: 1px solid var(--navy);
+}
+
+.certificate-actions {
+    width: min(1000px, 100%);
+
+    margin: 20px auto;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:760px) {
+
+    .nav {
+        padding: 0 4%;
+    }
+
+    .bi-logo {
+        width: 105px;
+    }
+
+    .brand-divider {
+        display: none;
+    }
+
+    .brand-text {
+        display: none;
+    }
+
+    .navlinks {
+        gap: 8px;
+    }
+
+    .navlinks a:not(.nav-quiz) {
+        display: none;
+    }
+
+    .hero {
+        padding: 55px 7% 50px;
+    }
+
+    .hero h1 {
+        font-size: 37px;
+    }
+
+    .topic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-box {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-banner {
+        padding: 28px 24px;
+    }
+
+    .quiz-banner::after {
+        right: -20px;
+
+        font-size: 160px;
+    }
+
+    .modal-box {
+        padding: 22px;
+
+        border-radius: 15px;
+    }
+
+    .question {
+        font-size: 16px;
+    }
+
+    .quiz-footer {
+        align-items: flex-end;
+
+        flex-direction: column;
+    }
+
+    .quiz-footer button {
+        width: 100%;
+    }
+
+    .certificate-wrapper {
+        padding: 10px;
+    }
+
+    .certificate {
+        min-height: 600px;
+
+        padding: 35px 20px;
+
+        border-width: 7px;
+    }
+
+    .certificate::before {
+        inset: 10px;
+    }
+
+    .certificate-logo {
+        width: 150px;
+    }
+
+    .certificate-title {
+        margin-top: 25px;
+
+        font-size: 27px;
+    }
+
+    .certificate-name {
+        font-size: 25px;
+
+        margin: 25px 0 10px;
+    }
+
+    .certificate-text {
+        font-size: 11px;
+    }
+
+    .certificate-footer {
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 25px;
+
+        padding: 0;
+    }
+
+    .certificate-actions {
+        flex-direction: column;
+    }
+
+    .certificate-actions button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    .certificate-wrapper,
+    .certificate-wrapper * {
+        visibility: visible !important;
+    }
+
+    .certificate-wrapper {
+        position: absolute;
+
+        inset: 0;
+
+        padding: 0;
+
+        background: white;
+    }
+
+    .certificate {
+        width: 100%;
+        min-height: 100vh;
+
+        box-shadow: none;
+
+        border-width: 10px;
+    }
+
+    .certificate-actions {
+        display: none !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<nav class="nav">
+
+    <div class="brand">
+
+        <img
+            src="BI_Logo.png"
+            alt="Bank Indonesia"
+            class="bi-logo"
+        >
+
+        <div class="brand-divider"></div>
+
+        <div class="brand-text">
+
+            <div class="brand-name">
+                ICARE
+            </div>
+
+            <span class="brand-sub">
+                Bank Indonesia Learning Hub
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="navlinks">
+
+        <a href="land page.html">
+            Beranda
+        </a>
+
+        <a href="#materi">
+            Materi
+        </a>
+
+        <a href="#quiz" class="nav-quiz">
+            Quiz
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero" id="beranda">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            Pusat Edukasi · QRIS
+        </div>
+
+
+        <h1>
+
+            Kenali QRIS,
+
+            <br>
+
+            <span>Bayar Lebih Mudah & Aman</span>
+
+        </h1>
+
+
+        <p>
+
+            Pelajari QRIS sebagai standar pembayaran
+            menggunakan QR Code di Indonesia, cara
+            menggunakan QRIS, jenis transaksi, serta
+            tips keamanan dalam bertransaksi digital.
+
+        </p>
+
+
+        <div class="hero-pills">
+
+            <div class="pill">
+                ✓ Edukasi QRIS
+            </div>
+
+            <div class="pill">
+                ◉ Transaksi Digital
+            </div>
+
+            <div class="pill">
+                🛡 Keamanan
+            </div>
+
+            <div class="pill">
+                ★ Quiz Interaktif
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<main class="container">
+
+
+<!-- ======================================================
+     MATERI
+====================================================== -->
+
+<section class="section" id="materi">
+
+    <div class="section-head">
+
+        <div class="kicker">
+            Materi Edukasi
+        </div>
+
+        <h2 class="title">
+            Pelajari QRIS
+        </h2>
+
+        <p class="subtitle">
+            Pahami dasar QRIS sebelum mengikuti quiz.
+        </p>
+
+    </div>
+
+
+    <div class="topic-grid">
+
+
+        <article class="card">
+
+            <div class="topic">
+
+                <div class="topic-icon">
+                    QR
+                </div>
+
+                <div>
+
+                    <h3>
+                        Apa Itu QRIS?
+                    </h3>
+
+                    <p>
+                        QRIS merupakan standar QR Code
+                        pembayaran yang ditetapkan oleh
+                        Bank Indonesia agar transaksi
+                        pembayaran menggunakan QR Code
+                        dapat dilakukan secara lebih mudah.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card-action">
+
+                <span>
+                    Dasar QRIS
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <article class="card">
+
+            <div class="topic">
+
+                <div class="topic-icon">
+                    📱
+                </div>
+
+                <div>
+
+                    <h3>
+                        Cara Menggunakan QRIS
+                    </h3>
+
+                    <p>
+                        Buka aplikasi pembayaran yang
+                        mendukung QRIS, lakukan pemindaian
+                        QR Code, periksa nama merchant dan
+                        nominal, kemudian konfirmasi pembayaran.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card-action">
+
+                <span>
+                    Transaksi QRIS
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <article class="card">
+
+            <div class="topic">
+
+                <div class="topic-icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <h3>
+                        Jenis QRIS
+                    </h3>
+
+                    <p>
+                        Kenali QRIS statis dan dinamis serta
+                        perkembangan inovasi QRIS dalam
+                        mendukung transaksi pembayaran
+                        masyarakat.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card-action">
+
+                <span>
+                    Jenis & Inovasi
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <article class="card">
+
+            <div class="topic">
+
+                <div class="topic-icon">
+                    🛡
+                </div>
+
+                <div>
+
+                    <h3>
+                        Keamanan QRIS
+                    </h3>
+
+                    <p>
+                        Selalu periksa nama merchant dan
+                        nominal sebelum membayar. Jangan
+                        pernah memberikan PIN, password,
+                        OTP, atau data rahasia kepada pihak lain.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card-action">
+
+                <span>
+                    Keamanan Transaksi
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     INFORMASI
+====================================================== -->
+
+<section class="section" style="padding-top:0;">
+
+    <div class="section-head">
+
+        <div class="kicker">
+            Ringkasan
+        </div>
+
+        <h2 class="title">
+            Yang Perlu Kamu Ketahui
+        </h2>
+
+    </div>
+
+
+    <div class="info-box">
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                📱
+            </div>
+
+            <h3>
+                QRIS
+            </h3>
+
+            <p>
+                Standar QR Code pembayaran
+                yang ditetapkan Bank Indonesia.
+            </p>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                🔍
+            </div>
+
+            <h3>
+                Cek Sebelum Bayar
+            </h3>
+
+            <p>
+                Pastikan nama merchant dan
+                nominal transaksi sudah benar.
+            </p>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                🔐
+            </div>
+
+            <h3>
+                Jaga Data Rahasia
+            </h3>
+
+            <p>
+                Jangan berikan PIN, password,
+                dan OTP kepada orang lain.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     QUIZ
+====================================================== -->
+
+<section class="section" id="quiz">
+
+    <div class="quiz-banner">
+
+        <div class="quiz-content">
+
+            <div
+                class="kicker"
+                style="color:#72e4e8;"
+            >
+                Uji Pemahaman
+            </div>
+
+            <h2>
+                Siap mengikuti Quiz QRIS?
+            </h2>
+
+            <p>
+                Kamu akan mendapatkan 10 soal QRIS
+                yang dipilih secara acak dari bank soal.
+                Peserta yang mendapatkan nilai minimal
+                70 akan dinyatakan lulus dan dapat
+                memperoleh sertifikat.
+            </p>
+
+            <button
+                class="primary"
+                onclick="openNameForm()"
+            >
+                Mulai Quiz →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    <div class="footer-inner">
+
+
+        <div>
+
+            <h3>
+                ICARE
+            </h3>
+
+            <p>
+
+                Integrated Consumer Awareness &
+                Resilience Education.
+
+                <br>
+
+                Bank Indonesia Kantor Perwakilan
+                Provinsi Jawa Timur.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                TAUTAN
+            </h4>
+
+            <p>
+
+                <a href="land page.html">
+                    Beranda
+                </a>
+
+                <br>
+
+                <a href="#materi">
+                    Materi
+                </a>
+
+                <br>
+
+                <a href="#quiz">
+                    Quiz
+                </a>
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                MATERI
+            </h4>
+
+            <p>
+                QRIS
+                <br>
+                Transaksi Digital
+                <br>
+                Keamanan QRIS
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 ICARE · Bank Indonesia
+        Kantor Perwakilan Provinsi Jawa Timur
+
+    </div>
+
+</footer>
+
+
+
+<!-- ======================================================
+     QUIZ MODAL
+====================================================== -->
+
+<div
+    class="modal"
+    id="quizModal"
+>
+
+    <div class="modal-box">
+
+        <div id="quizContent"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ======================================================
+     CERTIFICATE
+====================================================== -->
+
+<div
+    class="certificate-wrapper"
+    id="certificateWrapper"
+>
+
+    <div class="certificate">
+
+        <div class="certificate-content">
+
+            <img
+                src="logo_bi.png"
+                alt="Bank Indonesia"
+                class="certificate-logo"
+            >ss
+
+            <div class="certificate-org">
+
+                BANK INDONESIA
+                <br>
+                KANTOR PERWAKILAN PROVINSI JAWA TIMUR
+
+            </div>
+
+
+            <div class="certificate-title">
+
+                Sertifikat
+
+            </div>
+
+
+            <div class="certificate-subtitle">
+
+                Diberikan kepada
+
+            </div>
+
+
+            <div
+                class="certificate-name"
+                id="certificateName"
+            >
+                Nama Peserta
+            </div>
+
+
+            <div class="certificate-text">
+
+                Telah berhasil menyelesaikan
+
+                <strong>
+                    Quiz Edukasi QRIS — ICARE
+                </strong>
+
+                dengan memenuhi nilai kelulusan
+                yang telah ditentukan.
+
+            </div>
+
+
+            <div
+                class="certificate-score"
+                id="certificateScore"
+            >
+                Nilai: 70
+            </div>
+
+
+            <div class="certificate-footer">
+
+                <div class="certificate-date">
+
+                    Diterbitkan pada
+
+                    <br>
+
+                    <strong id="certificateDate">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="signature">
+
+                    Bank Indonesia
+                    <br>
+                    Kantor Perwakilan Provinsi Jawa Timur
+
+                    <div class="signature-line"></div>
+
+                    ICARE Learning Hub
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="certificate-actions">
+
+        <button
+            class="primary"
+            onclick="printCertificate()"
+        >
+            🖨 Cetak / Simpan PDF
+        </button>
+
+        <button
+            class="secondary"
+            onclick="closeCertificate()"
+        >
+            Tutup Sertifikat
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   BANK SOAL QRIS
+========================================================= */
+
+const questionBank = [
+
+    {
+        q: "Apa kepanjangan dari QRIS?",
+        options: [
+            "Quick Response Code Indonesian Standard",
+            "Quick Response Indonesia System",
+            "Quick Retail Indonesia Standard",
+            "QR Indonesia Payment System"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Siapa yang menetapkan standar QRIS di Indonesia?",
+        options: [
+            "Bank Indonesia",
+            "Kementerian Keuangan",
+            "OJK",
+            "Kementerian Perdagangan"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "QRIS digunakan untuk melakukan apa?",
+        options: [
+            "Pembayaran menggunakan QR Code",
+            "Membuat rekening bank",
+            "Mencetak uang",
+            "Mengajukan pinjaman"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Apa yang sebaiknya dilakukan sebelum mengonfirmasi pembayaran QRIS?",
+        options: [
+            "Memeriksa nama merchant dan nominal",
+            "Memberikan PIN kepada merchant",
+            "Memberikan OTP kepada kasir",
+            "Mengirim password aplikasi"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Apakah PIN boleh diberikan kepada orang lain saat melakukan transaksi QRIS?",
+        options: [
+            "Boleh",
+            "Tidak boleh",
+            "Boleh kepada merchant",
+            "Boleh kepada petugas melalui telepon"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Apa fungsi QR Code dalam transaksi QRIS?",
+        options: [
+            "Sebagai media untuk melakukan pembayaran",
+            "Sebagai kartu identitas",
+            "Sebagai password",
+            "Sebagai bukti kepemilikan rekening"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "QRIS merupakan standar pembayaran menggunakan teknologi apa?",
+        options: [
+            "QR Code",
+            "Bluetooth",
+            "NFC saja",
+            "SMS"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Apa yang harus dilakukan jika nama merchant pada aplikasi tidak sesuai dengan merchant tujuan?",
+        options: [
+            "Tetap membayar",
+            "Membatalkan dan memeriksa kembali",
+            "Memberikan OTP",
+            "Mengirim screenshot PIN"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Salah satu manfaat QRIS bagi konsumen adalah...",
+        options: [
+            "Memudahkan pembayaran",
+            "Mendapatkan uang gratis",
+            "Tidak perlu memeriksa transaksi",
+            "Tidak membutuhkan aplikasi pembayaran"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "QRIS dapat digunakan melalui aplikasi pembayaran yang mendukung QRIS.",
+        options: [
+            "Benar",
+            "Salah",
+            "Hanya melalui ATM",
+            "Hanya melalui kartu kredit"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "QRIS dapat digunakan oleh merchant untuk menerima pembayaran digital.",
+        options: [
+            "Benar",
+            "Salah",
+            "Hanya bank",
+            "Hanya pemerintah"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "QRIS membantu menciptakan standardisasi pembayaran berbasis QR Code.",
+        options: [
+            "Benar",
+            "Salah",
+            "Hanya untuk transfer antar bank",
+            "Hanya untuk tarik tunai"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Apa yang dimaksud dengan QRIS statis?",
+        options: [
+            "QR Code yang tidak berubah untuk pembayaran merchant",
+            "QR Code yang hanya dapat digunakan sekali",
+            "QR Code untuk kartu ATM",
+            "QR Code untuk transfer BI-FAST"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Pada QRIS dinamis, nominal transaksi dapat ditampilkan dalam QR Code.",
+        options: [
+            "Benar",
+            "Salah",
+            "Hanya untuk transaksi tunai",
+            "Hanya untuk kartu debit"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Apakah OTP boleh diberikan kepada orang yang mengaku sebagai petugas bank?",
+        options: [
+            "Boleh",
+            "Tidak boleh",
+            "Boleh jika melalui WhatsApp",
+            "Boleh jika transaksi QRIS"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Apa tindakan yang tepat jika mendapatkan pesan mencurigakan yang meminta data akun pembayaran?",
+        options: [
+            "Memberikan data",
+            "Mengabaikan dan tidak memberikan data rahasia",
+            "Mengirim OTP",
+            "Mengirim PIN"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "QRIS dapat mendukung transaksi pembayaran secara digital tanpa menggunakan uang tunai.",
+        options: [
+            "Benar",
+            "Salah",
+            "Hanya pada hari tertentu",
+            "Hanya di luar negeri"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Data apa yang harus dijaga kerahasiaannya?",
+        options: [
+            "PIN dan OTP",
+            "Nama merchant",
+            "Nominal belanja",
+            "Nama toko"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Jika transaksi QRIS berhasil, konsumen sebaiknya...",
+        options: [
+            "Memastikan status transaksi berhasil",
+            "Memberikan PIN kepada merchant",
+            "Menghapus aplikasi pembayaran",
+            "Mengirim password"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Salah satu inovasi dalam ekosistem QRIS adalah...",
+        options: [
+            "QRIS Tuntas",
+            "BI-RTGS",
+            "SKNBI",
+            "BI-FAST"
+        ],
+        answer: 0
+    }
+
+];
+
+
+/* =========================================================
+   VARIABEL QUIZ
+========================================================= */
+
+let quizQuestions = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let selectedAnswer = null;
+
+let participantName = "";
+
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffle(array) {
+
+    const result = [...array];
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   BUKA FORM NAMA
+========================================================= */
+
+function openNameForm() {
+
+    document
+        .getElementById("quizModal")
+        .classList.add("show");
+
+    document
+        .getElementById("quizContent")
+        .innerHTML = `
+
+        <div class="name-form">
+
+            <div class="name-form-icon">
+                👤
+            </div>
+
+            <h2>
+                Sebelum Mulai Quiz
+            </h2>
+
+            <p>
+                Silakan masukkan nama lengkap.
+                Nama ini akan digunakan pada sertifikat
+                apabila kamu dinyatakan lulus.
+            </p>
+
+            <label class="input-label">
+                Nama Lengkap
+            </label>
+
+            <input
+                type="text"
+                id="participantName"
+                class="name-input"
+                placeholder="Masukkan nama lengkap"
+                autocomplete="name"
+            >
+
+            <button
+                class="primary form-button"
+                onclick="beginQuiz()"
+            >
+                Mulai Quiz →
+            </button>
+
+        </div>
+
+    `;
+
+    setTimeout(() => {
+
+        const input =
+            document.getElementById(
+                "participantName"
+            );
+
+        if (input) {
+            input.focus();
+        }
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   MULAI QUIZ
+========================================================= */
+
+function beginQuiz() {
+
+    const input =
+        document.getElementById(
+            "participantName"
+        );
+
+    const name =
+        input.value.trim();
+
+    if (!name) {
+
+        alert(
+            "Silakan masukkan nama lengkap terlebih dahulu."
+        );
+
+        input.focus();
+
+        return;
+    }
+
+    participantName = name;
+
+    quizQuestions =
+        shuffle(questionBank)
+        .slice(0, 10);
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    selectedAnswer = null;
+
+    renderQuestion();
+
+}
+
+
+/* =========================================================
+   RENDER SOAL
+========================================================= */
+
+function renderQuestion() {
+
+    const item =
+        quizQuestions[currentQuestion];
+
+
+    const progress =
+        (
+            currentQuestion /
+            quizQuestions.length
+        ) * 100;
+
+
+    document
+        .getElementById("quizContent")
+        .innerHTML = `
+
+        <div class="modal-top">
+
+            <div>
+
+                <div class="question-count">
+
+                    QUIZ QRIS ·
+                    SOAL ${currentQuestion + 1}
+                    DARI ${quizQuestions.length}
+
+                </div>
+
+                <h2>
+                    Uji Pemahamanmu
+                </h2>
+
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeQuiz()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="question">
+
+            ${item.q}
+
+        </div>
+
+
+        <div class="options">
+
+            ${item.options
+                .map(
+                    (option, index) => `
+
+                    <button
+                        class="option"
+                        onclick="selectAnswer(${index}, this)"
+                    >
+
+                        <strong>
+                            ${String.fromCharCode(65 + index)}.
+                        </strong>
+
+                        ${option}
+
+                    </button>
+
+                `
+                )
+                .join("")}
+
+        </div>
+
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                style="width:${progress}%"
+            ></div>
+
+        </div>
+
+
+        <div class="quiz-footer">
+
+            <span
+                style="
+                    font-size:10px;
+                    color:#66758A;
+                "
+            >
+                Pilih satu jawaban
+            </span>
+
+
+            <button
+                class="primary"
+                id="nextBtn"
+                onclick="nextQuestion()"
+                disabled
+            >
+
+                ${
+                    currentQuestion ===
+                    quizQuestions.length - 1
+
+                    ? "Lihat Hasil"
+
+                    : "Soal Berikutnya"
+                }
+
+                →
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PILIH JAWABAN
+========================================================= */
+
+function selectAnswer(index, element) {
+
+    selectedAnswer = index;
+
+
+    document
+        .querySelectorAll(".option")
+        .forEach(
+            button =>
+                button.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    element.classList.add(
+        "selected"
+    );
+
+
+    document
+        .getElementById("nextBtn")
+        .disabled = false;
+
+}
+
+
+/* =========================================================
+   SOAL BERIKUTNYA
+========================================================= */
+
+function nextQuestion() {
+
+    if (
+        selectedAnswer === null
+    ) {
+        return;
+    }
+
+
+    const correctAnswer =
+        quizQuestions[
+            currentQuestion
+        ].answer;
+
+
+    if (
+        selectedAnswer === correctAnswer
+    ) {
+
+        score++;
+
+    }
+
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion <
+        quizQuestions.length
+    ) {
+
+        selectedAnswer = null;
+
+        renderQuestion();
+
+    }
+
+    else {
+
+        showResult();
+
+    }
+
+}
+
+
+/* =========================================================
+   HASIL
+========================================================= */
+
+function showResult() {
+
+    const nilai =
+        Math.round(
+            (
+                score /
+                quizQuestions.length
+            ) * 100
+        );
+
+
+    const lulus =
+        nilai >= 70;
+
+
+    document
+        .getElementById("quizContent")
+        .innerHTML = `
+
+        <div class="result">
+
+            <button
+                class="close"
+                style="float:right"
+                onclick="closeQuiz()"
+            >
+                ×
+            </button>
+
+
+            <div
+                class="
+                    result-icon
+                    ${lulus ? "pass" : "fail"}
+                "
+            >
+
+                ${lulus ? "✓" : "!"}
+
+            </div>
+
+
+            <div class="question-count">
+
+                HASIL QUIZ QRIS
+
+            </div>
+
+
+            <div class="score">
+
+                ${nilai}
+
+            </div>
+
+
+            <div
+                class="
+                    ${
+                        lulus
+                        ? "pass-text"
+                        : "fail-text"
+                    }
+                "
+            >
+
+                ${
+                    lulus
+                    ? "LULUS — Pemahaman Baik"
+                    : "BELUM LULUS — Silakan Coba Lagi"
+                }
+
+            </div>
+
+
+            <p class="result-description">
+
+                Selamat
+                <strong>
+                    ${participantName}
+                </strong>!
+
+                <br><br>
+
+                Kamu menjawab benar
+
+                <strong>
+                    ${score}
+                    dari
+                    ${quizQuestions.length}
+                    soal
+                </strong>.
+
+                <br>
+
+                Passing grade:
+
+                <strong>
+                    70
+                </strong>.
+
+            </p>
+
+
+            <div class="result-buttons">
+
+                ${
+                    lulus
+
+                    ? `
+
+                    <button
+                        class="primary"
+                        onclick="generateCertificate(${nilai})"
+                    >
+                        🏆 Lihat Sertifikat
+                    </button>
+
+                    `
+
+                    : ""
+
+                }
+
+
+                <button
+                    class="secondary"
+                    onclick="beginQuiz()"
+                >
+                    🔄 Kerjakan Lagi
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   GENERATE CERTIFICATE
+========================================================= */
+
+function generateCertificate(nilai) {
+
+    if (nilai < 70) {
+
+        alert(
+            "Sertifikat hanya tersedia untuk peserta dengan nilai minimal 70."
+        );
+
+        return;
+
+    }
+
+
+    const today =
+        new Date();
+
+
+    const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    };
+
+
+    const dateString =
+        today.toLocaleDateString(
+            "id-ID",
+            options
+        );
+
+
+    document
+        .getElementById(
+            "certificateName"
+        )
+        .textContent =
+        participantName;
+
+
+    document
+        .getElementById(
+            "certificateScore"
+        )
+        .textContent =
+        "Nilai: " + nilai;
+
+
+    document
+        .getElementById(
+            "certificateDate"
+        )
+        .textContent =
+        dateString;
+
+
+    document
+        .getElementById(
+            "certificateWrapper"
+        )
+        .classList.add("show");
+
+
+    document
+        .getElementById(
+            "quizModal"
+        )
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   PRINT CERTIFICATE
+========================================================= */
+
+function printCertificate() {
+
+    window.print();
+
+}
+
+
+/* =========================================================
+   CLOSE CERTIFICATE
+========================================================= */
+
+function closeCertificate() {
+
+    document
+        .getElementById(
+            "certificateWrapper"
+        )
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   CLOSE QUIZ
+========================================================= */
+
+function closeQuiz() {
+
+    document
+        .getElementById(
+            "quizModal"
+        )
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+document
+    .getElementById("quizModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                document.getElementById(
+                    "quizModal"
+                )
+            ) {
+
+                closeQuiz();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeQuiz();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

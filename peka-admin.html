@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b2242">
+  <title>Admin Zona PeKA | I CARE U BI Jawa Timur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="zona-peka.css">
+  <link rel="stylesheet" href="peka-admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="zona-peka-config.js" defer></script>
+  <script src="peka-admin.js" defer></script>
+</head>
+<body>
+  <header class="zona-header">
+    <a class="zona-brand" href="land%20page.html" aria-label="Kembali ke I CARE U">
+      <img src="BI_Logo.png" alt="Bank Indonesia">
+      <span class="zona-brand-copy">I CARE U<span>Administrasi Zona PeKA</span></span>
+    </a>
+    <a class="zona-back" href="peka.html">&larr; Kembali ke PeKA</a>
+  </header>
+
+  <main class="zona-main peka-admin-main">
+    <section class="zona-intro" aria-labelledby="admin-title">
+      <span class="zona-eyebrow">Akses terbatas</span>
+      <h1 id="admin-title">Administrasi Zona PeKA</h1>
+      <p>Masuk dengan email dan password akun admin terverifikasi yang telah diberi peran PeKA oleh administrator Supabase.</p>
+    </section>
+
+    <section id="admin-login-card" class="zona-card">
+      <div class="zona-notice"><strong>Keamanan admin:</strong> login email saja tidak memberi hak admin. Server akan memeriksa peran `peka_admin` pada metadata akun tepercaya.</div>
+      <form id="admin-login-form" class="zona-form">
+        <div class="zona-field">
+          <label for="admin-email">Email admin</label>
+          <input id="admin-email" type="email" autocomplete="email" required maxlength="254">
+        </div>
+        <div class="zona-field">
+          <label for="admin-password">Password</label>
+          <input id="admin-password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="zona-primary" type="submit">Masuk sebagai admin</button>
+      </form>
+      <p id="admin-status" class="zona-admin-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="admin-report-card" class="zona-card zona-hidden" aria-labelledby="report-title">
+      <div class="zona-admin-toolbar">
+        <div>
+          <h2 id="report-title">Rekap sesi dan jawaban</h2>
+          <p id="admin-account"></p>
+        </div>
+        <button id="admin-signout" class="zona-secondary" type="button">Keluar</button>
+      </div>
+      <div class="zona-admin-stats" aria-label="Statistik sesuai filter">
+        <div><span>Total sesi</span><strong id="stat-total">—</strong></div>
+        <div><span>Pre-test</span><strong id="stat-pre-test">—</strong></div>
+        <div><span>Post-test</span><strong id="stat-post-test">—</strong></div>
+        <div><span>Berlangsung</span><strong id="stat-in-progress">—</strong></div>
+        <div><span>Selesai</span><strong id="stat-completed">—</strong></div>
+      </div>
+      <div id="participant-status-stats" class="peka-admin-participant-stats" aria-label="Status peserta per jenis tes">
+        <section id="pre-test-participant-stats">
+          <h3>Pre-test</h3>
+          <div class="zona-admin-stats">
+            <div><span>Selesai</span><strong id="pre-test-completed">—</strong></div>
+            <div><span>Sedang mengerjakan</span><strong id="pre-test-in-progress">—</strong></div>
+            <div><span>Belum mulai</span><strong id="pre-test-not-started">—</strong></div>
+          </div>
+        </section>
+        <section id="post-test-participant-stats">
+          <h3>Post-test</h3>
+          <div class="zona-admin-stats">
+            <div><span>Selesai</span><strong id="post-test-completed">—</strong></div>
+            <div><span>Sedang mengerjakan</span><strong id="post-test-in-progress">—</strong></div>
+            <div><span>Belum mulai</span><strong id="post-test-not-started">—</strong></div>
+          </div>
+        </section>
+      </div>
+      <div class="zona-admin-filters">
+        <label for="report-test-type">Jenis tes</label>
+        <select id="report-test-type">
+          <option value="">Semua tes</option>
+          <option value="PRE_TEST">Pre-test</option>
+          <option value="POST_TEST">Post-test</option>
+        </select>
+        <label for="report-search">Cari peserta</label>
+        <input id="report-search" type="search" maxlength="120" placeholder="Nama, email, atau lembaga">
+        <label for="report-institution">Lembaga</label>
+        <input id="report-institution" type="search" maxlength="160" placeholder="Semua lembaga">
+        <button id="refresh-report" class="zona-primary" type="button">Muat rekap</button>
+        <button id="export-report" class="zona-secondary" type="button" disabled>Ekspor halaman CSV</button>
+      </div>
+      <p id="report-summary" class="zona-admin-summary" aria-live="polite"></p>
+      <p id="report-status" class="zona-admin-status" role="status" aria-live="polite"></p>
+      <div class="zona-admin-table-wrap">
+        <table class="zona-admin-table">
+          <thead>
+            <tr>
+              <th>Peserta</th>
+              <th>Email</th>
+              <th>Lembaga</th>
+              <th>Jenis tes</th>
+              <th>Status</th>
+              <th>Mulai / selesai</th>
+              <th>Progres</th>
+              <th>Email konfirmasi</th>
+              <th>Jawaban</th>
+              <th>Rekap nilai</th>
+            </tr>
+          </thead>
+          <tbody id="report-rows"></tbody>
+        </table>
+      </div>
+      <div class="zona-admin-pagination" aria-label="Navigasi halaman laporan">
+        <button id="report-previous" class="zona-secondary" type="button" disabled>Sebelumnya</button>
+        <span id="report-page-status" aria-live="polite"></span>
+        <button id="report-next" class="zona-secondary" type="button" disabled>Berikutnya</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
