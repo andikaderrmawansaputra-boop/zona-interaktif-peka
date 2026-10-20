@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#062653">
+<title>Materi OJK — ICARE Bank Indonesia Jawa Timur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy: #062653;
+    --navy-dark: #041b3c;
+    --navy-light: #0b3976;
+    --blue: #1266b1;
+    --cyan: #12b9c5;
+    --cyan-light: #dff8fa;
+    --white: #ffffff;
+    --bg: #f4f7fb;
+    --text: #172a43;
+    --muted: #66758a;
+    --line: #dce5ef;
+    --shadow: 0 10px 35px rgba(17, 48, 83, .08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    line-height: 1.6;
+}
+a { color: inherit; }
+
+.nav {
+    min-height: 76px;
+    padding: 10px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(6, 38, 83, .98);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px);
+}
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.bi-logo { width: 145px; max-height: 50px; object-fit: contain; object-position: left center; }
+.brand-divider { width: 1px; height: 35px; background: rgba(255,255,255,.25); }
+.brand-text { color: var(--white); }
+.brand-name { font-size: 17px; font-weight: 800; letter-spacing: .04em; }
+.brand-sub { display: block; color: #aac5df; font-size: 9px; }
+.navlinks { display: flex; align-items: center; gap: 24px; }
+.navlinks a {
+    color: #d9e7f5;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: color .2s ease;
+}
+.navlinks a:hover, .navlinks a:focus-visible { color: var(--white); }
+.navlinks .nav-action {
+    padding: 9px 15px;
+    border-radius: 5px;
+    background: var(--cyan);
+    color: var(--navy-dark);
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 60px 7% 58px;
+    color: var(--white);
+    background:
+        radial-gradient(circle at 88% 15%, rgba(18,185,197,.21), transparent 28%),
+        linear-gradient(125deg, var(--navy) 0%, #0a3978 65%, #0b667c 100%);
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -270px;
+    bottom: -325px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 50%;
+    box-shadow: 0 0 0 65px rgba(255,255,255,.025), 0 0 0 130px rgba(255,255,255,.018);
+    pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; width: min(1120px, 100%); margin: auto; }
+.breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 22px; color: #c5d8ea; font-size: 12px; }
+.breadcrumbs a { color: #c5d8ea; text-decoration: none; }
+.breadcrumbs a:hover { color: var(--white); text-decoration: underline; }
+.breadcrumb-separator { color: var(--cyan); }
+.eyebrow {
+    display: inline-flex;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 4px;
+    color: #bdeef0;
+    background: rgba(255,255,255,.08);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.hero h1 { margin-bottom: 12px; font-size: clamp(36px, 5vw, 54px); line-height: 1.12; font-weight: 800; }
+.hero p { max-width: 710px; color: #d0deed; font-size: 15px; line-height: 1.8; }
+
+main { padding: 0 7% 76px; }
+.content { width: min(1120px, 100%); margin: 0 auto; }
+.section { padding-top: 54px; }
+.section-heading { margin-bottom: 23px; }
+.section-kicker { margin-bottom: 7px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.section-heading h2 { color: var(--navy); font-size: clamp(23px, 3vw, 30px); line-height: 1.25; font-weight: 800; }
+.section-heading p { max-width: 680px; margin-top: 8px; color: var(--muted); font-size: 14px; }
+.internal-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 28px;
+    padding: 28px 30px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--cyan);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+}
+.card-type { display: inline-block; margin-bottom: 11px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.internal-card h3 { max-width: 760px; margin-bottom: 9px; color: var(--navy); font-size: 19px; line-height: 1.45; }
+.internal-card p { max-width: 760px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.date { display: inline-flex; align-items: center; gap: 7px; margin-top: 15px; color: #52677f; font-size: 12px; font-weight: 600; }
+.date-mark { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
+.card-action { display: flex; min-width: 175px; flex-direction: column; align-items: flex-start; gap: 9px; }
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 43px;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+}
+.button:hover { background: var(--blue); transform: translateY(-1px); }
+.button:focus-visible, a:focus-visible { outline: 3px solid #72e2e6; outline-offset: 3px; }
+.button { cursor: pointer; }
+.button:disabled { cursor: not-allowed; background: #73839a; }
+.button:disabled:hover { transform: none; }
+.availability { color: #7a5261; font-size: 11px; line-height: 1.5; }
+
+.resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.resource-card {
+    min-height: 211px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 21px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.resource-card:hover { transform: translateY(-3px); border-color: #a9dfe3; box-shadow: var(--shadow); }
+.resource-mark {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background: var(--cyan-light);
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 800;
+}
+.resource-card h3 { margin-bottom: 7px; color: var(--navy); font-size: 15px; line-height: 1.4; }
+.resource-card p { margin-bottom: 18px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.resource-card .button { margin-top: auto; min-height: 38px; padding: 8px 12px; font-size: 11px; background: #eaf3fb; color: var(--navy); }
+.resource-card .button:hover { background: var(--navy); color: var(--white); }
+.arrow { font-size: 15px; line-height: 1; }
+
+.report-section { padding-top: 54px; }
+.report-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 27px 30px;
+    border-radius: 6px;
+    color: var(--white);
+    background: linear-gradient(110deg, var(--navy) 0%, #0a3978 72%, #0b667c 100%);
+}
+.report-box h2 { margin-bottom: 6px; font-size: 22px; line-height: 1.3; }
+.report-box p { color: #d0deed; font-size: 13px; }
+.report-email { display: inline-block; margin-top: 9px; color: #72e2e6; font-size: 13px; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.report-email:hover { text-decoration: underline; }
+.report-box .button { flex: 0 0 auto; background: var(--cyan); color: var(--navy-dark); }
+.report-box .button:hover { background: #69e0e4; }
+
+footer { background: var(--navy-dark); color: #d9e7f5; }
+.footer-inner {
+    width: min(1120px, 86%);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 34px;
+    margin: auto;
+    padding: 36px 0 28px;
+}
+.footer-inner h3 { margin-bottom: 8px; color: var(--white); font-size: 17px; }
+.footer-inner h4 { margin-bottom: 10px; color: var(--white); font-size: 11px; letter-spacing: .08em; }
+.footer-inner p, .footer-inner a { color: #a9bdd1; font-size: 11px; line-height: 1.9; }
+.footer-inner a { text-decoration: none; }
+.footer-inner a:hover { color: var(--white); }
+.copyright { padding: 14px 7%; border-top: 1px solid rgba(255,255,255,.12); color: #8ba3bc; text-align: center; font-size: 10px; }
+
+@media (max-width: 800px) {
+    .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+    .nav { min-height: 65px; padding: 9px 5%; gap: 12px; }
+    .bi-logo { width: 105px; }
+    .brand-divider, .brand-text { display: none; }
+    .navlinks { gap: 12px; }
+    .navlinks a { font-size: 11px; }
+    .navlinks .nav-action { padding: 8px 10px; }
+    .hero { padding: 38px 6% 39px; }
+    .hero h1 { font-size: 36px; }
+    .hero p { font-size: 13px; }
+    main { padding: 0 6% 52px; }
+    .section { padding-top: 38px; }
+    .internal-card { grid-template-columns: 1fr; gap: 20px; padding: 22px 19px; }
+    .internal-card h3 { font-size: 17px; }
+    .card-action { min-width: 0; }
+    .resource-grid { grid-template-columns: 1fr; gap: 12px; }
+    .resource-card { min-height: auto; }
+    .report-box { align-items: flex-start; flex-direction: column; padding: 23px 20px; }
+    .report-box .button { width: 100%; }
+    .footer-inner { width: 88%; grid-template-columns: 1fr; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<header>
+    <nav class="nav" aria-label="Navigasi utama">
+        <a class="brand" href="land page.html" aria-label="ICARE Bank Indonesia Jawa Timur, kembali ke beranda">
+            <img src="BI_Logo.png" alt="Bank Indonesia" class="bi-logo">
+            <span class="brand-divider" aria-hidden="true"></span>
+            <span class="brand-text"><span class="brand-name">ICARE</span><span class="brand-sub">Bank Indonesia Learning Hub</span></span>
+        </a>
+        <div class="navlinks">
+            <a href="land page.html">Beranda</a>
+            <a href="#materi-bi-ojk">Materi</a>
+            <a class="nav-action" href="#sumber-ojk">Sumber OJK <span aria-hidden="true">&#8594;</span></a>
+        </div>
+    </nav>
+</header>
+
+<section class="hero" aria-labelledby="page-title">
+    <div class="hero-content">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="land page.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span aria-current="page">Materi OJK</span>
+        </nav>
+        <span class="eyebrow">Pusat Materi dan Edukasi</span>
+        <h1 id="page-title">Materi OJK</h1>
+        <p>Akses materi terkait OJK serta berbagai sumber edukasi resmi untuk meningkatkan pemahaman mengenai sektor jasa keuangan dan pelindungan konsumen.</p>
+    </div>
+</section>
+
+<main>
+    <div class="content">
+        <section class="section" id="materi-bi-ojk" aria-labelledby="internal-title">
+            <div class="section-heading">
+                <div class="section-kicker">Materi Internal</div>
+                <h2 id="internal-title">Materi BI-OJK</h2>
+                <p>Materi kegiatan dan kolaborasi BI-OJK yang tersedia untuk diakses.</p>
+            </div>
+            <article class="internal-card">
+                <div>
+                    <span class="card-type">FGD BI-OJK</span>
+                    <h3>Proses Bisnis Penilaian Kemampuan &amp; Kepatutan (PKK) Bagi Calon Pihak Utama BPR/BPRS</h3>
+                    <p>Materi FGD BI-OJK mengenai proses Penilaian Kemampuan dan Kepatutan (PKK), meliputi dasar hukum, pihak yang dinilai, aspek penilaian, persyaratan dokumen, tahapan proses, mekanisme penilaian, hingga hasil PKK.</p>
+                    <span class="date"><span class="date-mark" aria-hidden="true"></span>30 September 2026</span>
+                </div>
+                <div class="card-action">
+                    <button class="button" type="button" disabled title="File PDF belum tersedia di project">&#128196; Buka Materi</button>
+                    <span class="availability">File "Materi Tayangan Proses Bisnis PKK BPR OJK - FGD BI 30 Sep 2026 NET.pdf" belum tersedia di project.</span>
+                </div>
+            </article>
+        </section>
+
+        <section class="section" id="sumber-ojk" aria-labelledby="resources-title">
+            <div class="section-heading">
+                <div class="section-kicker">Rujukan Resmi</div>
+                <h2 id="resources-title">Sumber Edukasi Resmi OJK</h2>
+                <p>Jelajahi materi dan informasi melalui kanal resmi Otoritas Jasa Keuangan.</p>
+            </div>
+            <div class="resource-grid">
+                <article class="resource-card">
+                    <span class="resource-mark" aria-hidden="true">01</span>
+                    <h3>Edukasi Keuangan OJK</h3>
+                    <p>Informasi dan materi edukasi keuangan dari Otoritas Jasa Keuangan.</p>
+                    <a class="button" href="https://ojk.go.id/id/kanal/edukasi-dan-perlindungan-konsumen/Pages/literasi-keuangan.aspx" target="_blank" rel="noopener noreferrer">Buka Situs OJK <span class="arrow" aria-hidden="true">&#8599;</span></a>
+                </article>
+                <article class="resource-card">
+                    <span class="resource-mark" aria-hidden="true">02</span>
+                    <h3>Sikapi Uangmu</h3>
+                    <p>Portal edukasi keuangan OJK yang menyediakan berbagai konten dan materi edukasi untuk masyarakat.</p>
+                    <a class="button" href="https://sikapiuangmu.ojk.go.id/" target="_blank" rel="noopener noreferrer">Buka Sikapi Uangmu <span class="arrow" aria-hidden="true">&#8599;</span></a>
+                </article>
+                <article class="resource-card">
+                    <span class="resource-mark" aria-hidden="true">03</span>
+                    <h3>Publikasi Edukasi Konsumen</h3>
+                    <p>Berbagai publikasi dan majalah edukasi konsumen yang diterbitkan oleh OJK.</p>
+                    <a class="button" href="https://ojk.go.id/id/Publikasi/E-Magazine/Pages/default.aspx" target="_blank" rel="noopener noreferrer">Lihat Publikasi <span class="arrow" aria-hidden="true">&#8599;</span></a>
+                </article>
+                <article class="resource-card">
+                    <span class="resource-mark" aria-hidden="true">04</span>
+                    <h3>Website Resmi OJK</h3>
+                    <p>Portal utama Otoritas Jasa Keuangan untuk mendapatkan informasi, regulasi, layanan, dan publikasi resmi.</p>
+                    <a class="button" href="https://ojk.go.id/" target="_blank" rel="noopener noreferrer">Kunjungi OJK <span class="arrow" aria-hidden="true">&#8599;</span></a>
+                </article>
+                <article class="resource-card">
+                    <span class="resource-mark" aria-hidden="true">05</span>
+                    <h3>Pelindungan Konsumen OJK</h3>
+                    <p>Informasi mengenai edukasi, pelindungan konsumen, serta kanal layanan konsumen OJK.</p>
+                    <a class="button" href="https://kontak157.ojk.go.id/" target="_blank" rel="noopener noreferrer">Buka Informasi <span class="arrow" aria-hidden="true">&#8599;</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section class="report-section" id="kirim-surat" aria-labelledby="report-title">
+            <div class="report-box">
+                <div>
+                    <h2 id="report-title">Kirim Surat Laporan</h2>
+                    <p>Untuk pengiriman surat laporan kepada OJK, gunakan alamat email berikut.</p>
+                    <a class="report-email" href="mailto:mailingroom.kosb@ojk.go.id">mailingroom.kosb@ojk.go.id</a>
+                </div>
+                <a class="button" href="mailto:mailingroom.kosb@ojk.go.id?subject=Pengiriman%20Surat%20Laporan">&#9993; Kirim Surat Laporan</a>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <h3>ICARE</h3>
+            <p>Integrated Consumer Awareness &amp; Resilience Education.<br>Bank Indonesia Kantor Perwakilan Provinsi Jawa Timur.</p>
+        </div>
+        <div>
+            <h4>TAUTAN</h4>
+            <p><a href="land page.html">Beranda</a><br><a href="#materi-bi-ojk">Materi BI-OJK</a><br><a href="#sumber-ojk">Sumber Edukasi OJK</a></p>
+        </div>
+        <div>
+            <h4>MATERI</h4>
+            <p>Materi BI-OJK<br>Edukasi Keuangan<br>Pelindungan Konsumen</p>
+        </div>
+    </div>
+    <div class="copyright">&copy; 2026 ICARE &middot; Bank Indonesia Kantor Perwakilan Provinsi Jawa Timur</div>
+</footer>
+</body>
+</html>
