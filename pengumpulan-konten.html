@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengumpulan Konten I CARE U | Bank Indonesia Jawa Timur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0d1f4c;
+      --navy-800: #123a78;
+      --navy-700: #1d4d8d;
+      --blue-200: #dbeafe;
+      --gold-500: #d9a33a;
+      --gold-600: #c68a18;
+      --white: #ffffff;
+      --bg: #f4f7fb;
+      --text: #1d2b3a;
+      --muted: #61718a;
+      --line: #dfe7f1;
+      --success: #0f7a45;
+      --success-soft: #eafaf2;
+      --warning: #b56a00;
+      --warning-soft: #fff5e6;
+      --danger: #b42318;
+      --danger-soft: #fff1f0;
+      --shadow: 0 18px 45px rgba(13, 31, 76, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13, 31, 76, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #f9cf5d, #d39d2b);
+      color: var(--navy-900);
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(217, 163, 58, 0.25);
+    }
+
+    .brand-text {
+      color: var(--white);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      opacity: 0.72;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .nav a {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 55%, #0d3b6e 100%);
+      color: var(--white);
+      padding: 72px 0 52px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(217, 163, 58, 0.2), transparent 24%),
+        radial-gradient(circle at 82% 20%, rgba(116, 184, 255, 0.18), transparent 22%),
+        radial-gradient(circle at 50% 90%, rgba(255, 255, 255, 0.06), transparent 30%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #dfeefc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+
+    .headline-accent {
+      color: var(--gold-500);
+    }
+
+    .hero-copy {
+      margin: 0;
+      max-width: 630px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 14px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #f6c85d, #d39d2b);
+      color: var(--navy-900);
+      box-shadow: 0 12px 26px rgba(217, 163, 58, 0.25);
+    }
+
+    .button-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+    }
+
+    .card-panel {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .mini-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #dfeefc;
+      opacity: 0.82;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .mini-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    .mini-list li::before {
+      content: "✓";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(217, 163, 58, 0.18);
+      color: var(--gold-500);
+      font-size: 0.78rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .section {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 28px;
+      max-width: 700px;
+    }
+
+    .section-kicker {
+      margin: 0 0 10px;
+      color: var(--navy-700);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      letter-spacing: -0.05em;
+      color: var(--navy-900);
+      line-height: 1.15;
+    }
+
+    .section-sub {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 640px;
+    }
+
+    .form-wrap {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 18px 38px rgba(17, 28, 44, 0.06);
+      overflow: hidden;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 22px;
+      padding: 30px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--navy-900);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 15px;
+      background: #fbfcff;
+      color: var(--text);
+      font: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: rgba(29,77,141,0.55);
+      box-shadow: 0 0 0 4px rgba(29, 77, 141, 0.08);
+      background: var(--white);
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .note {
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: #f6f9ff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .status.visible {
+      display: block;
+    }
+
+    .status.info {
+      background: var(--blue-200);
+      color: var(--navy-900);
+      border-color: rgba(29, 77, 141, 0.12);
+    }
+
+    .status.success {
+      background: var(--success-soft);
+      color: var(--success);
+      border-color: rgba(15, 122, 69, 0.2);
+    }
+
+    .status.warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+      border-color: rgba(181, 106, 0, 0.2);
+    }
+
+    .status.error {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border-color: rgba(180, 35, 24, 0.2);
+    }
+
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+
+    .submit-hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .button-submit {
+      background: linear-gradient(135deg, #1a4a8f, #0d3a6d);
+      color: var(--white);
+      min-width: 220px;
+      box-shadow: 0 18px 36px rgba(13, 31, 76, 0.18);
+    }
+
+    .button-submit:disabled {
+      cursor: wait;
+      opacity: 0.8;
+    }
+
+    footer {
+      background: #081a35;
+      color: rgba(255,255,255,0.78);
+      padding: 24px 0 38px;
+    }
+
+    .footer-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.83rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .footer-brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #f5c85b, #d39d2b);
+      color: var(--navy-900);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner,
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .button-submit {
+        width: 100%;
+      }
+
+      .submit-row {
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Bank Indonesia Jawa Timur">
+        <div class="brand-mark">BI</div>
+        <div class="brand-text">
+          I CARE U
+          <span>Bank Indonesia Jawa Timur</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navigasi utama">
+        <a href="index.html">Beranda</a>
+        <a href="peka.html">PEKA</a>
+        <a href="qris.html">QRIS</a>
+        <a href="zona-peka.html">Zona PEKA</a>
+        <a href="pengumpulan-konten.html" class="active">Pengumpulan Konten</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">I CARE U • Bank Indonesia</div>
+          <h1>Pengumpulan <span class="headline-accent">Konten Edukasi</span></h1>
+          <p class="hero-copy">
+            Bagikan konten edukasi Anda untuk mendukung kampanye perlindungan konsumen, QRIS, sistem pembayaran, dan literasi rupiah di Jawa Timur.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#form-pendaftaran">Isi Formulir</a>
+            <a class="button button-secondary" href="index.html">Kembali ke Beranda</a>
+          </div>
+        </div>
+
+        <div class="card-panel" aria-label="Informasi penting">
+          <div class="mini-badge">Persyaratan</div>
+          <ul class="mini-list">
+            <li>Pastikan link konten yang dikirim aktif dan dapat diakses publik.</li>
+            <li>Gunakan kategori yang sesuai dengan topik edukasi yang dibawakan.</li>
+            <li>Data akan dikirim ke Google Sheets melalui endpoint yang telah disediakan.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="form-pendaftaran">
+      <div class="section-heading">
+        <p class="section-kicker">Formulir</p>
+        <h2>Daftarkan Konten Edukasi Anda</h2>
+        <p class="section-sub">
+          Silakan isi data berikut dengan lengkap. Tahap pengiriman hanya akan dinyatakan berhasil setelah server Google Apps Script mengembalikan konfirmasi yang valid.
+        </p>
+      </div>
+
+      <div class="form-wrap">
+        <form id="contentForm" novalidate>
+          <div class="form-grid">
+            <div class="field-grid">
+              <div class="field">
+                <label for="nama">Nama lengkap</label>
+                <input id="nama" name="nama" type="text" placeholder="Masukkan nama lengkap" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="contoh@email.com" required />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="instansi">Instansi / Lembaga</label>
+                <input id="instansi" name="instansi" type="text" placeholder="Nama instansi atau lembaga" required />
+              </div>
+
+              <div class="field">
+                <label for="kategori">Kategori konten</label>
+                <select id="kategori" name="kategori" required>
+                  <option value="">Pilih kategori</option>
+                  <option>Edukasi Pelindungan Konsumen</option>
+                  <option>Edukasi QRIS dan Sistem Pembayaran</option>
+                  <option>Edukasi Rupiah</option>
+                  <option>Edukasi lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="platform">Platform</label>
+                <select id="platform" name="platform" required>
+                  <option value="">Pilih platform</option>
+                  <option>Instagram</option>
+                  <option>TikTok</option>
+                  <option>YouTube</option>
+                  <option>Lainnya</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="url_konten">URL konten</label>
+                <input id="url_konten" name="url_konten" type="url" placeholder="https://..." required />
+              </div>
+            </div>
+
+            <div class="note">
+              Catatan: pengiriman data akan dilakukan ke Google Apps Script melalui endpoint yang disediakan. Antarmuka hanya akan menampilkan status sukses jika server mengembalikan konfirmasi eksplisit. Jika terjadi pembatasan CORS atau endpoint tidak menerima POST, formulir akan menampilkan status peringatan atau gagal tanpa mengklaim keberhasilan.
+            </div>
+
+            <div class="submit-row">
+              <div class="submit-hint">Data tidak menyimpan credential atau token di frontend.</div>
+              <button id="submitButton" class="button button-submit" type="submit">Kirim Data Konten</button>
+            </div>
+
+            <div id="statusBox" class="status" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-mark">BI</div>
+        <div>I CARE U • Bank Indonesia Jawa Timur</div>
+      </div>
+      <div>© 2026 — Komitmen Literasi Keuangan dan Perlindungan Konsumen</div>
+    </div>
+  </footer>
+
+  <script>
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyG8w_30RT8igFb3ZD_wc2-LZI71jXwqhx96k1xnVX_Ny0x9mzHR9IBX1Fv2IDOzg5I/exec';
+    const form = document.getElementById('contentForm');
+    const submitButton = document.getElementById('submitButton');
+    const statusBox = document.getElementById('statusBox');
+
+    function showStatus(type, message) {
+      statusBox.className = 'status visible ' + type;
+      statusBox.textContent = message;
+    }
+
+    function setButtonLoading(isLoading) {
+      submitButton.disabled = isLoading;
+      submitButton.textContent = isLoading ? 'Mengirim...' : 'Kirim Data Konten';
+    }
+
+    function normalizeServerResponse(rawText) {
+      if (!rawText) {
+        return { ok: false, message: 'Server tidak mengembalikan respons.' };
+      }
+
+      try {
+        const json = JSON.parse(rawText);
+        return { ok: Boolean(json && (json.status === 'success' || json.status === 'ok')), message: json.message || rawText };
+      } catch (error) {
+        const isSuccess = /success|berhasil|ok/i.test(rawText);
+        return { ok: isSuccess, message: rawText };
+      }
+    }
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const payload = {
+        nama: document.getElementById('nama').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        instansi: document.getElementById('instansi').value.trim(),
+        kategori: document.getElementById('kategori').value,
+        platform: document.getElementById('platform').value,
+        url_konten: document.getElementById('url_konten').value.trim()
+      };
+
+      const data = new URLSearchParams();
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value) data.append(key, value);
+      });
+
+      setButtonLoading(true);
+      showStatus('info', 'Sedang mengirim data ke Google Apps Script. Menunggu konfirmasi dari server...');
+
+      try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Accept': 'application/json, text/plain, */*'
+          },
+          body: data.toString()
+        });
+
+        const rawText = await response.text();
+        const normalized = normalizeServerResponse(rawText);
+
+        if (!response.ok) {
+          throw new Error(normalized.message || 'Respons dari server tidak valid.');
+        }
+
+        if (normalized.ok) {
+          showStatus('success', 'Data berhasil dikonfirmasi oleh server. Silakan cek penambahan baris baru di Google Sheets.');
+        } else {
+          showStatus('warning', 'Pengiriman sudah diterima oleh browser, tetapi belum ada konfirmasi sukses yang eksplisit dari Apps Script. Silakan cek Google Sheets secara manual untuk memastikan data masuk.');
+        }
+      } catch (error) {
+        console.error('Apps Script submit error:', error);
+        showStatus('error', 'Pengiriman gagal karena error jaringan atau pembatasan CORS dari endpoint Apps Script. Pastikan endpoint sudah mengizinkan request POST dan siap menerima data dari browser.');
+      } finally {
+        setButtonLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>
