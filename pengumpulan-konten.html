@@ -643,91 +643,97 @@
     </div>
   </footer>
 
-  <script>
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyG8w_30RT8igFb3ZD_wc2-LZI71jXwqhx96k1xnVX_Ny0x9mzHR9IBX1Fv2IDOzg5I/exec';
-    const form = document.getElementById('contentForm');
-    const submitButton = document.getElementById('submitButton');
-    const statusBox = document.getElementById('statusBox');
+ 
+<script>
+  const SUBMIT_URL = '/.netlify/functions/submit-content';
 
-    function showStatus(type, message) {
-      statusBox.className = 'status visible ' + type;
-      statusBox.textContent = message;
+  const form = document.getElementById('contentForm');
+  const submitButton = document.getElementById('submitButton');
+  const statusBox = document.getElementById('statusBox');
+
+  function showStatus(type, message) {
+    statusBox.className = 'status visible ' + type;
+    statusBox.textContent = message;
+  }
+
+  function setButtonLoading(isLoading) {
+    submitButton.disabled = isLoading;
+    submitButton.textContent = isLoading
+      ? 'Mengirim...'
+      : 'Kirim Data Konten';
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
     }
 
-    function setButtonLoading(isLoading) {
-      submitButton.disabled = isLoading;
-      submitButton.textContent = isLoading ? 'Mengirim...' : 'Kirim Data Konten';
-    }
+    const payload = {
+      nama: document.getElementById('nama').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      instansi: document.getElementById('instansi').value.trim(),
+      kategori: document.getElementById('kategori').value,
+      platform: document.getElementById('platform').value,
+      url_konten: document.getElementById('url_konten').value.trim()
+    };
 
-    function normalizeServerResponse(rawText) {
-      if (!rawText) {
-        return { ok: false, message: 'Server tidak mengembalikan respons.' };
-      }
+    const data = new URLSearchParams();
 
-      try {
-        const json = JSON.parse(rawText);
-        return { ok: Boolean(json && (json.status === 'success' || json.status === 'ok')), message: json.message || rawText };
-      } catch (error) {
-        const isSuccess = /success|berhasil|ok/i.test(rawText);
-        return { ok: isSuccess, message: rawText };
-      }
-    }
+    Object.entries(payload).forEach(([key, value]) => {
+      data.append(key, value);
+    });
 
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
+    setButtonLoading(true);
+    showStatus('info', 'Sedang mengirim data, mohon tunggu...');
 
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const payload = {
-        nama: document.getElementById('nama').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        instansi: document.getElementById('instansi').value.trim(),
-        kategori: document.getElementById('kategori').value,
-        platform: document.getElementById('platform').value,
-        url_konten: document.getElementById('url_konten').value.trim()
-      };
-
-      const data = new URLSearchParams();
-      Object.entries(payload).forEach(([key, value]) => {
-        if (value) data.append(key, value);
+    try {
+      const response = await fetch(SUBMIT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          'Accept': 'application/json'
+        },
+        body: data.toString()
       });
 
-      setButtonLoading(true);
-      showStatus('info', 'Sedang mengirim data ke Google Apps Script. Menunggu konfirmasi dari server...');
+      let result;
 
       try {
-        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-            'Accept': 'application/json, text/plain, */*'
-          },
-          body: data.toString()
-        });
-
-        const rawText = await response.text();
-        const normalized = normalizeServerResponse(rawText);
-
-        if (!response.ok) {
-          throw new Error(normalized.message || 'Respons dari server tidak valid.');
-        }
-
-        if (normalized.ok) {
-          showStatus('success', 'Data berhasil dikonfirmasi oleh server. Silakan cek penambahan baris baru di Google Sheets.');
-        } else {
-          showStatus('warning', 'Pengiriman sudah diterima oleh browser, tetapi belum ada konfirmasi sukses yang eksplisit dari Apps Script. Silakan cek Google Sheets secara manual untuk memastikan data masuk.');
-        }
-      } catch (error) {
-        console.error('Apps Script submit error:', error);
-        showStatus('error', 'Pengiriman gagal karena error jaringan atau pembatasan CORS dari endpoint Apps Script. Pastikan endpoint sudah mengizinkan request POST dan siap menerima data dari browser.');
-      } finally {
-        setButtonLoading(false);
+        result = await response.json();
+      } catch {
+        throw new Error('Respons server tidak valid. Periksa deployment Netlify.');
       }
-    });
-  </script>
+
+      if (!response.ok || result.status !== 'success' || result.saved !== true) {
+        console.error('Respons server:', result);
+
+        throw new Error(
+          result.message || 'Data belum berhasil disimpan.'
+        );
+      }
+
+      showStatus(
+        'success',
+        'Data berhasil disimpan ke Google Sheets.'
+      );
+
+      form.reset();
+
+    } catch (error) {
+      console.error('Kesalahan pengiriman:', error);
+
+      showStatus(
+        'error',
+        error.message || 'Pengiriman gagal. Silakan coba kembali.'
+      );
+
+    } finally {
+      setButtonLoading(false);
+    }
+  });
+</script>
 </body>
 </html>
