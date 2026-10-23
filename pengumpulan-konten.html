@@ -1,38 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1f4c" />
   <title>Pengumpulan Konten I CARE U | Bank Indonesia Jawa Timur</title>
+  <meta name="description" content="Formulir pengumpulan konten edukasi I CARE U Bank Indonesia Jawa Timur." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --navy-900: #0d1f4c;
       --navy-800: #123a78;
       --navy-700: #1d4d8d;
-      --blue-200: #dbeafe;
       --gold-500: #d9a33a;
-      --gold-600: #c68a18;
       --white: #ffffff;
       --bg: #f4f7fb;
       --text: #1d2b3a;
       --muted: #61718a;
       --line: #dfe7f1;
-      --success: #0f7a45;
-      --success-soft: #eafaf2;
-      --warning: #b56a00;
-      --warning-soft: #fff5e6;
-      --danger: #b42318;
-      --danger-soft: #fff1f0;
       --shadow: 0 18px 45px rgba(13, 31, 76, 0.14);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 95px;
     }
 
     body {
@@ -52,7 +52,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(13, 31, 76, 0.96);
+      background: rgba(13, 31, 76, 0.97);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
@@ -72,6 +72,7 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
+      flex-shrink: 0;
     }
 
     .brand-mark {
@@ -91,7 +92,7 @@
       color: var(--white);
       font-weight: 700;
       font-size: 14px;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
     .brand-text span {
@@ -108,21 +109,21 @@
       align-items: center;
       flex-wrap: wrap;
       justify-content: flex-end;
-      gap: 12px;
+      gap: 6px;
     }
 
     .nav a {
-      color: rgba(255, 255, 255, 0.76);
+      color: rgba(255, 255, 255, 0.78);
       font-size: 12px;
       font-weight: 600;
       padding: 8px 12px;
       border-radius: 999px;
-      transition: 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     .nav a:hover,
     .nav a.active {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.12);
       color: var(--white);
     }
 
@@ -142,6 +143,7 @@
         radial-gradient(circle at 15% 10%, rgba(217, 163, 58, 0.2), transparent 24%),
         radial-gradient(circle at 82% 20%, rgba(116, 184, 255, 0.18), transparent 22%),
         radial-gradient(circle at 50% 90%, rgba(255, 255, 255, 0.06), transparent 30%);
+      pointer-events: none;
     }
 
     .hero-inner {
@@ -173,7 +175,7 @@
     h1 {
       margin: 18px 0 16px;
       font-size: clamp(2.3rem, 5vw, 4rem);
-      line-height: 1.08;
+      line-height: 1.12;
       letter-spacing: -0.05em;
     }
 
@@ -184,7 +186,7 @@
     .hero-copy {
       margin: 0;
       max-width: 630px;
-      color: rgba(255, 255, 255, 0.78);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 1.02rem;
     }
 
@@ -205,7 +207,7 @@
       border-radius: 14px;
       font-family: inherit;
       font-weight: 700;
-      font-size: 0.96rem;
+      font-size: 0.92rem;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -221,8 +223,8 @@
     }
 
     .button-secondary {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--white);
     }
 
@@ -241,7 +243,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #dfeefc;
-      opacity: 0.82;
+      opacity: 0.85;
       margin-bottom: 10px;
       font-weight: 700;
     }
@@ -258,8 +260,8 @@
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 0.9rem;
     }
 
     .mini-list li::before {
@@ -285,7 +287,7 @@
 
     .section-heading {
       margin-bottom: 28px;
-      max-width: 700px;
+      max-width: 760px;
     }
 
     .section-kicker {
@@ -302,14 +304,14 @@
       font-size: clamp(1.8rem, 3vw, 2.7rem);
       letter-spacing: -0.05em;
       color: var(--navy-900);
-      line-height: 1.15;
+      line-height: 1.2;
     }
 
     .section-sub {
       margin: 12px 0 0;
       color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 640px;
+      font-size: 0.96rem;
+      max-width: 700px;
     }
 
     .form-wrap {
@@ -320,135 +322,57 @@
       overflow: hidden;
     }
 
-    .form-grid {
-      display: grid;
-      gap: 22px;
-      padding: 30px;
+    .form-top {
+      padding: 24px 28px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
     }
 
-    .field-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    .form-top-title {
+      margin: 0;
       color: var(--navy-900);
+      font-size: 1rem;
+      font-weight: 800;
     }
 
-    .field input,
-    .field select,
-    .field textarea {
+    .form-top-description {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .google-form-container {
       width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 15px;
-      background: #fbfcff;
-      color: var(--text);
-      font: inherit;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      background: #ffffff;
+      overflow: hidden;
     }
 
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: rgba(29,77,141,0.55);
-      box-shadow: 0 0 0 4px rgba(29, 77, 141, 0.08);
-      background: var(--white);
-    }
-
-    .field textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .note {
-      padding: 16px 20px;
-      border-radius: 14px;
-      background: #f6f9ff;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .status {
-      display: none;
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .status.visible {
+    .google-form-container iframe {
       display: block;
+      width: 100%;
+      height: 1250px;
+      border: 0;
+      background: #ffffff;
     }
 
-    .status.info {
-      background: var(--blue-200);
-      color: var(--navy-900);
-      border-color: rgba(29, 77, 141, 0.12);
-    }
-
-    .status.success {
-      background: var(--success-soft);
-      color: var(--success);
-      border-color: rgba(15, 122, 69, 0.2);
-    }
-
-    .status.warning {
-      background: var(--warning-soft);
-      color: var(--warning);
-      border-color: rgba(181, 106, 0, 0.2);
-    }
-
-    .status.error {
-      background: var(--danger-soft);
-      color: var(--danger);
-      border-color: rgba(180, 35, 24, 0.2);
-    }
-
-    .submit-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-      padding-top: 8px;
-    }
-
-    .submit-hint {
+    .form-fallback {
+      padding: 18px 24px 26px;
+      text-align: center;
+      border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.86rem;
     }
 
-    .button-submit {
-      background: linear-gradient(135deg, #1a4a8f, #0d3a6d);
-      color: var(--white);
-      min-width: 220px;
-      box-shadow: 0 18px 36px rgba(13, 31, 76, 0.18);
-    }
-
-    .button-submit:disabled {
-      cursor: wait;
-      opacity: 0.8;
+    .form-fallback a {
+      color: var(--navy-700);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     footer {
       background: #081a35;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255, 255, 255, 0.78);
       padding: 24px 0 38px;
     }
 
@@ -483,49 +407,109 @@
       font-weight: 800;
     }
 
-    @media (max-width: 768px) {
-      .hero-inner,
-      .field-grid {
+    @media (max-width: 900px) {
+      .topbar-inner {
+        padding: 12px 0;
+        align-items: flex-start;
+      }
+
+      .hero-inner {
         grid-template-columns: 1fr;
       }
 
+      .card-panel {
+        max-width: 680px;
+      }
+    }
+
+    @media (max-width: 768px) {
       .topbar-inner {
-        align-items: flex-start;
-        justify-content: center;
-        padding: 14px 0;
+        flex-direction: column;
+        gap: 12px;
       }
 
       .nav {
+        width: 100%;
         justify-content: flex-start;
+        gap: 4px;
       }
 
-      .button-submit {
+      .nav a {
+        padding: 7px 10px;
+        font-size: 11px;
+      }
+
+      .hero {
+        padding: 52px 0 42px;
+      }
+
+      .hero-inner,
+      .section,
+      .topbar-inner,
+      .footer-inner {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .hero-actions .button {
         width: 100%;
       }
 
-      .submit-row {
-        align-items: stretch;
+      .section {
+        padding: 48px 0;
+      }
+
+      .form-wrap {
+        border-radius: 16px;
+      }
+
+      .form-top {
+        padding: 20px;
+      }
+
+      .google-form-container iframe {
+        height: 1450px;
+      }
+
+      .form-fallback {
+        padding: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand" aria-label="Bank Indonesia Jawa Timur">
+      <a class="brand" href="index.html" aria-label="I CARE U Bank Indonesia Jawa Timur">
         <div class="brand-mark">BI</div>
         <div class="brand-text">
           I CARE U
           <span>Bank Indonesia Jawa Timur</span>
         </div>
-      </div>
+      </a>
 
       <nav class="nav" aria-label="Navigasi utama">
         <a href="index.html">Beranda</a>
         <a href="peka.html">PEKA</a>
         <a href="qris.html">QRIS</a>
         <a href="zona-peka.html">Zona PEKA</a>
-        <a href="pengumpulan-konten.html" class="active">Pengumpulan Konten</a>
+        <a href="pengumpulan-konten.html" class="active" aria-current="page">Pengumpulan Konten</a>
       </nav>
     </div>
   </header>
@@ -535,23 +519,34 @@
       <div class="hero-inner">
         <div>
           <div class="eyebrow">I CARE U • Bank Indonesia</div>
-          <h1>Pengumpulan <span class="headline-accent">Konten Edukasi</span></h1>
+
+          <h1>
+            Pengumpulan
+            <span class="headline-accent">Konten Edukasi</span>
+          </h1>
+
           <p class="hero-copy">
-            Bagikan konten edukasi Anda untuk mendukung kampanye perlindungan konsumen, QRIS, sistem pembayaran, dan literasi rupiah di Jawa Timur.
+            Bagikan konten edukasi Anda untuk mendukung kampanye pelindungan konsumen, QRIS, sistem pembayaran, dan literasi Rupiah di Jawa Timur.
           </p>
 
           <div class="hero-actions">
-            <a class="button button-primary" href="#form-pendaftaran">Isi Formulir</a>
-            <a class="button button-secondary" href="index.html">Kembali ke Beranda</a>
+            <a class="button button-primary" href="#form-pendaftaran">
+              Isi Formulir
+            </a>
+            <a class="button button-secondary" href="index.html">
+              Kembali ke Beranda
+            </a>
           </div>
         </div>
 
         <div class="card-panel" aria-label="Informasi penting">
           <div class="mini-badge">Persyaratan</div>
+
           <ul class="mini-list">
-            <li>Pastikan link konten yang dikirim aktif dan dapat diakses publik.</li>
-            <li>Gunakan kategori yang sesuai dengan topik edukasi yang dibawakan.</li>
-            <li>Data akan dikirim ke Google Sheets melalui endpoint yang telah disediakan.</li>
+            <li>Pastikan tautan konten yang dikirim aktif dan dapat diakses.</li>
+            <li>Pilih kategori sesuai topik edukasi yang dibawakan.</li>
+            <li>Pastikan seluruh data diisi dengan benar sebelum mengirim formulir.</li>
+            <li>Respons akan tercatat melalui Google Forms dan dapat direkap di Google Sheets yang terhubung.</li>
           </ul>
         </div>
       </div>
@@ -559,76 +554,46 @@
 
     <section class="section" id="form-pendaftaran">
       <div class="section-heading">
-        <p class="section-kicker">Formulir</p>
+        <p class="section-kicker">Formulir Pengumpulan</p>
+
         <h2>Daftarkan Konten Edukasi Anda</h2>
+
         <p class="section-sub">
-          Silakan isi data berikut dengan lengkap. Tahap pengiriman hanya akan dinyatakan berhasil setelah server Google Apps Script mengembalikan konfirmasi yang valid.
+          Silakan lengkapi formulir berikut untuk mengirimkan tautan konten edukasi Anda. Pastikan data yang dimasukkan benar sebelum menekan tombol kirim.
         </p>
       </div>
 
       <div class="form-wrap">
-        <form id="contentForm" novalidate>
-          <div class="form-grid">
-            <div class="field-grid">
-              <div class="field">
-                <label for="nama">Nama lengkap</label>
-                <input id="nama" name="nama" type="text" placeholder="Masukkan nama lengkap" required />
-              </div>
+        <div class="form-top">
+          <p class="form-top-title">Formulir Pengumpulan Konten I CARE U</p>
+          <p class="form-top-description">
+            Isi formulir langsung di bawah ini. Respons dikirim melalui Google Forms.
+          </p>
+        </div>
 
-              <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="contoh@email.com" required />
-              </div>
-            </div>
+        <div class="google-form-container">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeV4-PdrmUCXKOOcR6H0CgEpA2YcvYCQ6j0nu-B0fatY3h6LA/viewform?embedded=true"
+            title="Formulir Pengumpulan Konten I CARE U Bank Indonesia Jawa Timur"
+            width="100%"
+            height="1250"
+            loading="lazy"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0">
+            Memuat formulir...
+          </iframe>
+        </div>
 
-            <div class="field-grid">
-              <div class="field">
-                <label for="instansi">Instansi / Lembaga</label>
-                <input id="instansi" name="instansi" type="text" placeholder="Nama instansi atau lembaga" required />
-              </div>
-
-              <div class="field">
-                <label for="kategori">Kategori konten</label>
-                <select id="kategori" name="kategori" required>
-                  <option value="">Pilih kategori</option>
-                  <option>Edukasi Pelindungan Konsumen</option>
-                  <option>Edukasi QRIS dan Sistem Pembayaran</option>
-                  <option>Edukasi Rupiah</option>
-                  <option>Edukasi lainnya</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field-grid">
-              <div class="field">
-                <label for="platform">Platform</label>
-                <select id="platform" name="platform" required>
-                  <option value="">Pilih platform</option>
-                  <option>Instagram</option>
-                  <option>TikTok</option>
-                  <option>YouTube</option>
-                  <option>Lainnya</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="url_konten">URL konten</label>
-                <input id="url_konten" name="url_konten" type="url" placeholder="https://..." required />
-              </div>
-            </div>
-
-            <div class="note">
-              Catatan: pengiriman data akan dilakukan ke Google Apps Script melalui endpoint yang disediakan. Antarmuka hanya akan menampilkan status sukses jika server mengembalikan konfirmasi eksplisit. Jika terjadi pembatasan CORS atau endpoint tidak menerima POST, formulir akan menampilkan status peringatan atau gagal tanpa mengklaim keberhasilan.
-            </div>
-
-            <div class="submit-row">
-              <div class="submit-hint">Data tidak menyimpan credential atau token di frontend.</div>
-              <button id="submitButton" class="button button-submit" type="submit">Kirim Data Konten</button>
-            </div>
-
-            <div id="statusBox" class="status" role="status" aria-live="polite"></div>
-          </div>
-        </form>
+        <div class="form-fallback">
+          Jika formulir tidak muncul atau sulit diisi,
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeV4-PdrmUCXKOOcR6H0CgEpA2YcvYCQ6j0nu-B0fatY3h6LA/viewform"
+            target="_blank"
+            rel="noopener noreferrer">
+            buka formulir langsung di Google Forms
+          </a>.
+        </div>
       </div>
     </section>
   </main>
@@ -639,101 +604,11 @@
         <div class="footer-brand-mark">BI</div>
         <div>I CARE U • Bank Indonesia Jawa Timur</div>
       </div>
-      <div>© 2026 — Komitmen Literasi Keuangan dan Perlindungan Konsumen</div>
+
+      <div>
+        © 2026 — Literasi Keuangan dan Pelindungan Konsumen
+      </div>
     </div>
   </footer>
-
- 
-<script>
-  const SUBMIT_URL = '/.netlify/functions/submit-content';
-
-  const form = document.getElementById('contentForm');
-  const submitButton = document.getElementById('submitButton');
-  const statusBox = document.getElementById('statusBox');
-
-  function showStatus(type, message) {
-    statusBox.className = 'status visible ' + type;
-    statusBox.textContent = message;
-  }
-
-  function setButtonLoading(isLoading) {
-    submitButton.disabled = isLoading;
-    submitButton.textContent = isLoading
-      ? 'Mengirim...'
-      : 'Kirim Data Konten';
-  }
-
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const payload = {
-      nama: document.getElementById('nama').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      instansi: document.getElementById('instansi').value.trim(),
-      kategori: document.getElementById('kategori').value,
-      platform: document.getElementById('platform').value,
-      url_konten: document.getElementById('url_konten').value.trim()
-    };
-
-    const data = new URLSearchParams();
-
-    Object.entries(payload).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-
-    setButtonLoading(true);
-    showStatus('info', 'Sedang mengirim data, mohon tunggu...');
-
-    try {
-      const response = await fetch(SUBMIT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-          'Accept': 'application/json'
-        },
-        body: data.toString()
-      });
-
-      let result;
-
-      try {
-        result = await response.json();
-      } catch {
-        throw new Error('Respons server tidak valid. Periksa deployment Netlify.');
-      }
-
-      if (!response.ok || result.status !== 'success' || result.saved !== true) {
-        console.error('Respons server:', result);
-
-        throw new Error(
-          result.message || 'Data belum berhasil disimpan.'
-        );
-      }
-
-      showStatus(
-        'success',
-        'Data berhasil disimpan ke Google Sheets.'
-      );
-
-      form.reset();
-
-    } catch (error) {
-      console.error('Kesalahan pengiriman:', error);
-
-      showStatus(
-        'error',
-        error.message || 'Pengiriman gagal. Silakan coba kembali.'
-      );
-
-    } finally {
-      setButtonLoading(false);
-    }
-  });
-</script>
 </body>
 </html>
