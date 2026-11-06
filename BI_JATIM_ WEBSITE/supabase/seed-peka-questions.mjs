@@ -6,11 +6,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/+$/, "");
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const answerKeys = [
-  1, 2, 1, 2, 1, 2, 1, 1, 2, 1,
-  2, 0, 3, 2, 0, 1, 1, 0, 0, 1,
-  1, 0, 1, 2, 2, 1, 2, 1, 2, 2
-];
+const answerKeys = [0, 1, 0, 2, 1, 1, 0, 0, 0, 2, 0, 2, 1, 2, 2];
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the local shell environment.");
@@ -20,83 +16,59 @@ const source = await readFile(resolve(projectRoot, "zona-peka-questions.js"), "u
 const questionWindow = {};
 runInNewContext(source, { window: questionWindow });
 const questions = questionWindow.PEKA_QUESTION_BANK;
+if (!Array.isArray(questions) || questions.length !== 15 || answerKeys.length !== 15 ||
+    questions.some((item) => typeof item.question !== "string" || !item.question.trim() ||
+      !Array.isArray(item.options) || item.options.length !== 4 ||
+      item.options.some((option) => typeof option !== "string" || !option.trim()))) {
+  throw new Error("Expected exactly 15 questions with four non-empty options each.");
+}
 
-if (!Array.isArray(questions) || questions.length !== 30 ||
-    questions.some((item) =>
-      typeof item.question !== "string" ||
-      !item.question.trim() ||
-      !Array.isArray(item.options) ||
-      item.options.length !== 4 ||
-      item.options.some((option) => typeof option !== "string" || !option.trim())
-    )) {
-  throw new Error("Expected exactly 30 questions with four options each.");
+const existingResponse = await fetch(
+  `${supabaseUrl}/rest/v1/peka_questions?select=id,question_order&order=id.asc`,
+  { headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` } },
+);
+if (!existingResponse.ok) throw new Error(`Question lookup failed (${existingResponse.status}): ${await existingResponse.text()}`);
+const existing = await existingResponse.json();
+if (!Array.isArray(existing)) throw new Error("Question lookup returned an invalid response; no rows changed.");
+for (const row of existing) {
+  const validLegacy = row.id >= 1 && row.id <= 30 && row.question_order === row.id + 15;
+  const validCurrent = row.id >= 31 && row.id <= 45 && row.question_order === row.id - 30;
+  if (!Number.isInteger(row.id) || !Number.isInteger(row.question_order) || !(validLegacy || validCurrent)) {
+    throw new Error("Run migration 202611060001_peka_15_question_bank.sql before seeding; no rows changed.");
+  }
 }
 
 const rows = questions.map((question, index) => ({
-  id: index + 1,
+  id: index + 31,
   question_order: index + 1,
   question_text: question.question,
   options: question.options,
   timer_seconds: 60,
   is_active: true,
   answer_key: answerKeys[index],
-  answer_key_verified: true
+  answer_key_verified: true,
 }));
+const response = await fetch(`${supabaseUrl}/rest/v1/peka_questions?on_conflict=id`, {
+  method: "POST",
+  headers: {
+    apikey: serviceRoleKey,
+    Authorization: `Bearer ${serviceRoleKey}`,
+    "Content-Type": "application/json",
+    Prefer: "resolution=merge-duplicates,return=minimal",
+  },
+  body: JSON.stringify(rows),
+});
+if (!response.ok) throw new Error(`Question seeding failed (${response.status}): ${await response.text()}`);
 
-const existingResponse = await fetch(
-  `${supabaseUrl}/rest/v1/peka_questions?select=id,question_order&order=question_order.asc`,
-  {
-    headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`
-    }
-  }
-);
-if (!existingResponse.ok) {
-  const detail = await existingResponse.text();
-  throw new Error(`Existing question lookup failed (${existingResponse.status}): ${detail}`);
-}
-const existingRows = await existingResponse.json();
-if (!Array.isArray(existingRows)) {
-  throw new Error("Existing question lookup returned an invalid response; no rows were changed.");
-}
-
-const existingByOrder = new Map();
-const existingIds = new Set();
-for (const existing of existingRows) {
-  if (!Number.isInteger(existing.id) ||
-      !Number.isInteger(existing.question_order) ||
-      existing.id !== existing.question_order ||
-      existing.id < 1 ||
-      existing.id > 30 ||
-      existingIds.has(existing.id) ||
-      existingByOrder.has(existing.question_order)) {
-    throw new Error("Existing question IDs do not match the stable 1-30 order; no rows were changed.");
-  }
-  existingIds.add(existing.id);
-  existingByOrder.set(existing.question_order, existing);
-}
-
-const response = await fetch(
-  `${supabaseUrl}/rest/v1/peka_questions?on_conflict=id`,
-  {
-    method: "POST",
-    headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
-      "Content-Type": "application/json",
-      Prefer: "resolution=merge-duplicates,return=minimal"
-    },
-    body: JSON.stringify(rows)
-  }
-);
-
-if (!response.ok) {
-  const detail = await response.text();
-  throw new Error(`Question seeding failed (${response.status}): ${detail}`);
-}
-
-const existingCount = existingByOrder.size;
-console.log(
-  `Synchronized 30 PeKA questions and answer keys (${existingCount} existing rows updated; ${30 - existingCount} missing rows inserted).`
-);
+const archiveResponse = await fetch(`${supabaseUrl}/rest/v1/peka_questions?id=lte.30`, {
+  method: "PATCH",
+  headers: {
+    apikey: serviceRoleKey,
+    Authorization: `Bearer ${serviceRoleKey}`,
+    "Content-Type": "application/json",
+    Prefer: "return=minimal",
+  },
+  body: JSON.stringify({ is_active: false }),
+});
+if (!archiveResponse.ok) throw new Error(`Legacy question archival failed (${archiveResponse.status}): ${await archiveResponse.text()}`);
+console.log(`Synchronized 15 active PeKA questions; retained 30 legacy question records for historical sessions.`);
