@@ -1738,6 +1738,8 @@ footer a {
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="zona-peka-config.js"></script>
 <script>
 
 /* =====================================================
@@ -2197,116 +2199,185 @@ const modals = {
 const questions = [
 
     {
-        q: "Apa tujuan utama PEKA?",
+        q: "Apa kepanjangan dari PeKA?",
         options: [
-            "Membantu konsumen memahami dan mendapatkan informasi pelindungan konsumen",
-            "Memberikan pinjaman kepada konsumen",
-            "Menjual produk keuangan",
-            "Menghapus semua transaksi keuangan"
+            "Peduli, Kenali, Adukan",
+            "Peduli, Ketahui, Amankan",
+            "Periksa, Kenali, Adukan",
+            "Peduli, Kontrol, Amankan"
         ],
         answer: 0
     },
 
     {
-        q: "Apa yang sebaiknya dilakukan ketika menerima link mencurigakan?",
+        q: "Dalam konsep PeKA, sikap “Peduli” berarti...",
         options: [
-            "Langsung klik link tersebut",
-            "Sebarkan kepada teman",
-            "Jangan klik dan lakukan verifikasi",
-            "Masukkan data pribadi"
+            "Tidak memperhatikan risiko",
+            "Memiliki kepedulian terhadap keamanan dan perlindungan diri sebagai konsumen",
+            "Selalu mengikuti semua promosi",
+            "Membagikan informasi pribadi kepada orang lain"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Dalam konsep PeKA, “Kenali” berarti...",
+        options: [
+            "Mengenali produk, layanan, manfaat, dan risikonya sebelum menggunakan",
+            "Mengenali semua pegawai bank",
+            "Mengenali nomor telepon teman",
+            "Mengenali produk yang paling mahal"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Dalam konsep PeKA, “Adukan” berarti...",
+        options: [
+            "Menyebarkan keluhan di media sosial",
+            "Membiarkan masalah yang terjadi",
+            "Menyampaikan pengaduan melalui kanal yang tepat",
+            "Menghapus bukti transaksi"
         ],
         answer: 2
     },
 
     {
-        q: "Jika terjadi transaksi yang tidak dikenal, tindakan awal yang tepat adalah...",
+        q: "Jika konsumen mengalami permasalahan dengan layanan keuangan, langkah yang tepat adalah...",
         options: [
             "Membiarkannya",
-            "Menghubungi bank atau penyedia layanan",
-            "Menghapus aplikasi",
-            "Mengabaikannya"
+            "Menyampaikan pengaduan kepada penyedia layanan",
+            "Menghapus bukti transaksi",
+            "Menyebarkan masalah ke media sosial"
         ],
         answer: 1
     },
 
     {
-        q: "Apa yang harus dilakukan terhadap bukti komunikasi dengan pelaku?",
+        q: "BI Bicara merupakan kanal yang dapat digunakan masyarakat untuk...",
         options: [
-            "Dihapus",
-            "Dibiarkan tanpa disimpan",
-            "Disimpan sebagai bukti",
-            "Dikirim ke semua orang"
-        ],
-        answer: 2
-    },
-
-    {
-        q: "Jika mengalami penipuan digital yang mengandung unsur pidana, salah satu langkah yang dapat dilakukan adalah...",
-        options: [
-            "Melapor kepada pihak kepolisian",
-            "Menghapus semua bukti",
-            "Mengirim uang lagi",
-            "Menyebarkan data pelaku"
-        ],
-        answer: 0
-    },
-
-    {
-        q: "Apa prinsip yang tepat ketika seseorang memaksa Anda segera melakukan transaksi?",
-        options: [
-            "Ikuti secepat mungkin",
-            "Stop dan lakukan verifikasi",
-            "Berikan PIN",
-            "Berikan password"
+            "Membeli produk keuangan",
+            "Menyampaikan informasi dan pengaduan kepada Bank Indonesia",
+            "Membuka rekening bank",
+            "Mengajukan pinjaman online"
         ],
         answer: 1
     },
 
     {
-        q: "Data pribadi sebaiknya...",
+        q: "Salah satu cara mengakses layanan BI Bicara adalah melalui...",
         options: [
-            "Dibagikan kepada siapa saja",
-            "Diposting di media sosial",
-            "Dilindungi dan tidak diberikan sembarangan",
-            "Dikirim kepada nomor tidak dikenal"
-        ],
-        answer: 2
-    },
-
-    {
-        q: "Apa yang sebaiknya dicatat setelah membuat pengaduan?",
-        options: [
-            "Nomor tiket atau nomor laporan",
-            "Password akun",
-            "PIN ATM",
-            "Kode OTP"
+            "bicara.bi.go.id",
+            "google.bi.go.id",
+            "bankindonesia.shop",
+            "qris.bi.store"
         ],
         answer: 0
     },
 
     {
-        q: "Ketika menerima permintaan OTP dari orang yang tidak dikenal, sebaiknya...",
+        q: "Jika ingin menyampaikan pengaduan kepada Bank Indonesia, konsumen sebaiknya...",
         options: [
-            "Berikan OTP",
-            "Foto OTP",
-            "Jangan memberikan OTP",
-            "Posting OTP"
+            "Menyiapkan informasi dan bukti yang berkaitan dengan permasalahan",
+            "Menghapus seluruh bukti transaksi",
+            "Memberikan PIN kepada petugas",
+            "Membagikan password akun"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Manakah data yang harus dijaga kerahasiaannya oleh konsumen?",
+        options: [
+            "Kode OTP dan PIN",
+            "Nama bank",
+            "Logo bank",
+            "Alamat kantor bank"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Jika menerima pesan yang meminta kode OTP, tindakan yang tepat adalah...",
+        options: [
+            "Memberikan OTP jika pengirim mengaku sebagai petugas bank",
+            "Memberikan OTP kepada teman",
+            "Tidak memberikan OTP kepada siapa pun",
+            "Mengunggah OTP di media sosial"
         ],
         answer: 2
     },
 
     {
-        q: "Jika ragu terhadap suatu transaksi keuangan, prinsip PEKA yang tepat adalah...",
+        q: "Sebelum menggunakan produk atau layanan keuangan, konsumen sebaiknya...",
         options: [
-            "Kalau ragu, stop dulu",
-            "Segera transfer",
-            "Berikan data",
-            "Ikuti instruksi orang tersebut"
+            "Membaca dan memahami informasi produk terlebih dahulu",
+            "Langsung menggunakannya",
+            "Hanya melihat iklannya",
+            "Mengikuti teman tanpa mencari informasi"
         ],
         answer: 0
+    },
+
+    {
+        q: "Jika mendapatkan link mencurigakan dari nomor tidak dikenal, sebaiknya...",
+        options: [
+            "Langsung klik",
+            "Masukkan data pribadi untuk verifikasi",
+            "Jangan klik dan lakukan verifikasi melalui kanal resmi",
+            "Teruskan ke semua kontak"
+        ],
+        answer: 2
+    },
+
+    {
+        q: "Mengapa bukti transaksi perlu disimpan?",
+        options: [
+            "Untuk memenuhi memori ponsel",
+            "Dapat digunakan sebagai bukti ketika terjadi permasalahan",
+            "Untuk dibagikan ke media sosial",
+            "Agar transaksi menjadi lebih cepat"
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Manakah contoh perilaku konsumen yang cerdas?",
+        options: [
+            "Mudah percaya pada hadiah atau promo yang tidak jelas",
+            "Memberikan data pribadi kepada orang yang tidak dikenal",
+            "Mengecek informasi melalui kanal resmi sebelum melakukan transaksi",
+            "Membagikan kode OTP kepada petugas"
+        ],
+        answer: 2
+    },
+
+    {
+        q: "Jika ragu terhadap suatu informasi atau tawaran yang mencurigakan, sesuai semangat PeKA sebaiknya...",
+        options: [
+            "Langsung percaya",
+            "Langsung klik",
+            "Kalau Ragu, Stop Dulu dan lakukan verifikasi",
+            "Sebarkan kepada teman"
+        ],
+        answer: 2
     }
 
 ];
+
+const quizDataSupabaseConfig = window.PEKA_SUPABASE_CONFIG || {};
+const quizDataHasSupabaseConfig =
+    typeof quizDataSupabaseConfig.url === "string" &&
+    /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(quizDataSupabaseConfig.url) &&
+    typeof quizDataSupabaseConfig.anonKey === "string" &&
+    (/^sb_publishable_[A-Za-z0-9_-]+$/.test(quizDataSupabaseConfig.anonKey.trim()) ||
+        /^eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(quizDataSupabaseConfig.anonKey.trim()));
+const quizDataSupabase = quizDataHasSupabaseConfig && window.supabase?.createClient
+    ? window.supabase.createClient(
+        quizDataSupabaseConfig.url,
+        quizDataSupabaseConfig.anonKey.trim()
+    )
+    : null;
 
 
 /* =====================================================
@@ -2359,6 +2430,7 @@ function showQuizModal() {
 
         <div class="modal-sub">
             Jawab pertanyaan berikut untuk menguji pemahaman Anda.
+            Hasil quiz disimpan tanpa nama atau alamat email.
         </div>
 
         <div class="quiz-progress">
@@ -2538,6 +2610,15 @@ function showResult() {
                 pertanyaan.
             </p>
 
+            <p
+                id="quizDataSaveStatus"
+                style="margin-top:10px"
+                role="status"
+                aria-live="polite"
+            >
+                Menyimpan hasil quiz...
+            </p>
+
             ${
                 lulus
                 ? `
@@ -2588,8 +2669,49 @@ function showResult() {
 
     document.getElementById("modalContent").innerHTML = html;
 
+    void saveQuizDataResult(
+        nilai,
+        document.getElementById("quizDataSaveStatus")
+    );
+
 }
 
+
+async function saveQuizDataResult(nilai, statusElement) {
+
+    if (!quizDataSupabase) {
+        const reason = !window.supabase?.createClient
+            ? "Pustaka Supabase tidak dapat dimuat."
+            : "Konfigurasi Supabase belum valid.";
+        statusElement.textContent =
+            `${reason} Hasil quiz tampil, tetapi belum tersimpan.`;
+        console.error(`[Quiz Data] ${reason}`);
+        return;
+    }
+
+    statusElement.textContent = "Menyimpan hasil quiz...";
+
+    try {
+        const { error } = await quizDataSupabase
+            .from("quiz_data_results")
+            .insert({
+                correct_answers: score,
+                total_questions: questions.length,
+                score_percent: nilai
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        statusElement.textContent = "Hasil Quiz Data berhasil disimpan.";
+    } catch (error) {
+        console.error("[Quiz Data] Hasil tidak berhasil disimpan.", error);
+        statusElement.textContent =
+            "Hasil quiz belum berhasil disimpan. Nilai tetap ditampilkan; silakan hubungi administrator.";
+    }
+
+}
 
 /* =====================================================
    CERTIFICATE
