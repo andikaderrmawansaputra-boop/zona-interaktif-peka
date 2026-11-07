@@ -2387,6 +2387,9 @@ const quizDataSupabase = quizDataHasSupabaseConfig && window.supabase?.createCli
 let currentQuestion = 0;
 let selectedAnswer = null;
 let score = 0;
+let quizDataResultSaved = false;
+let quizDataSaveInProgress = false;
+let certificateParticipantName = "";
 
 
 /* =====================================================
@@ -2398,6 +2401,9 @@ function startQuiz() {
     currentQuestion = 0;
     selectedAnswer = null;
     score = 0;
+    quizDataResultSaved = false;
+    quizDataSaveInProgress = false;
+    certificateParticipantName = "";
 
     showQuizModal();
 
@@ -2610,15 +2616,6 @@ function showResult() {
                 pertanyaan.
             </p>
 
-            <p
-                id="quizDataSaveStatus"
-                style="margin-top:10px"
-                role="status"
-                aria-live="polite"
-            >
-                Menyimpan hasil quiz...
-            </p>
-
             ${
                 lulus
                 ? `
@@ -2669,32 +2666,36 @@ function showResult() {
 
     document.getElementById("modalContent").innerHTML = html;
 
-    void saveQuizDataResult(
-        nilai,
-        document.getElementById("quizDataSaveStatus")
-    );
-
 }
 
 
-async function saveQuizDataResult(nilai, statusElement) {
+async function saveQuizDataResult(nilai) {
 
     if (!quizDataSupabase) {
         const reason = !window.supabase?.createClient
             ? "Pustaka Supabase tidak dapat dimuat."
             : "Konfigurasi Supabase belum valid.";
-        statusElement.textContent =
-            `${reason} Hasil quiz tampil, tetapi belum tersimpan.`;
+        document.getElementById("quizDataSaveStatus").textContent =
+            `${reason} Nama dan nilai belum tersimpan.`;
         console.error(`[Quiz Data] ${reason}`);
-        return;
+        return false;
     }
 
-    statusElement.textContent = "Menyimpan hasil quiz...";
+    if (quizDataResultSaved || quizDataSaveInProgress) {
+        return quizDataResultSaved;
+    }
+
+    quizDataSaveInProgress = true;
+    const statusElement = document.getElementById("quizDataSaveStatus");
+    const retryButton = document.getElementById("retryQuizDataSave");
+    statusElement.textContent = "Menyimpan nama dan nilai sertifikat...";
+    retryButton.hidden = true;
 
     try {
         const { error } = await quizDataSupabase
             .from("quiz_data_results")
             .insert({
+                participant_name: certificateParticipantName,
                 correct_answers: score,
                 total_questions: questions.length,
                 score_percent: nilai
@@ -2704,12 +2705,51 @@ async function saveQuizDataResult(nilai, statusElement) {
             throw error;
         }
 
-        statusElement.textContent = "Hasil Quiz Data berhasil disimpan.";
+        quizDataResultSaved = true;
+        statusElement.textContent = "Nama dan nilai sertifikat berhasil disimpan.";
+        return true;
     } catch (error) {
-        console.error("[Quiz Data] Hasil tidak berhasil disimpan.", error);
+        console.error("[Quiz Data] Nama dan nilai sertifikat gagal disimpan.", error);
         statusElement.textContent =
-            "Hasil quiz belum berhasil disimpan. Nilai tetap ditampilkan; silakan hubungi administrator.";
+            "Nama dan nilai belum berhasil disimpan. Periksa koneksi, lalu coba lagi.";
+        retryButton.hidden = false;
+        return false;
+    } finally {
+        quizDataSaveInProgress = false;
     }
+
+}
+
+
+function retryQuizDataSave() {
+
+    const nilai = Math.round((score / questions.length) * 100);
+    void saveQuizDataResult(nilai);
+
+}
+
+
+function openCertificateSaveStatus() {
+
+    return `
+        <p
+            id="quizDataSaveStatus"
+            style="margin-top:12px"
+            role="status"
+            aria-live="polite"
+        >
+            Menyimpan nama dan nilai sertifikat...
+        </p>
+        <button
+            id="retryQuizDataSave"
+            class="result-btn btn-retry"
+            type="button"
+            onclick="retryQuizDataSave()"
+            hidden
+        >
+            Coba simpan lagi
+        </button>
+    `;
 
 }
 
@@ -2735,6 +2775,7 @@ function showCertificate(nilai) {
 
     }
 
+    certificateParticipantName = nama.trim();
 
     const tanggal =
         new Date().toLocaleDateString(
@@ -2801,6 +2842,8 @@ function showCertificate(nilai) {
 
             </div>
 
+            ${openCertificateSaveStatus()}
+
             <div class="certificate-footer">
 
                 Program I CARE<br>
@@ -2832,6 +2875,8 @@ function showCertificate(nilai) {
 
 
     document.getElementById("modalContent").innerHTML = html;
+
+    void saveQuizDataResult(nilai);
 
 }
 
