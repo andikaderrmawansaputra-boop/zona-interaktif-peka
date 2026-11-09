@@ -244,8 +244,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         
         <!-- CARD 1: Rupiah -->
-       <!-- CARD 1: Rupiah -->
-          <a href="/rupiah.html" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+        <a href="/rupiah.html" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
           <div>
             <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-5 group-hover:bg-amber-400 group-hover:text-bi-navyDark transition-all duration-300">
               <i class="fa-solid fa-money-bill-wave"></i>
@@ -295,25 +294,24 @@
           </div>
         </a>
 
-
         <!-- CARD 4: Bank Materi -->
-<a href="/bank-materi.html" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
-  <div>
-    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-5 group-hover:bg-amber-400 group-hover:text-bi-navyDark transition-all duration-300">
-      <i class="fa-solid fa-book-open"></i>
-    </div>
-    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
-      Bank Materi
-    </h3>
-    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
-      Akses berbagai materi edukasi dan literasi yang dapat dibaca dan diunduh secara gratis.
-    </p>
-  </div>
-  <div class="flex items-center text-amber-400 text-xs font-semibold group-hover:translate-x-1 transition-transform">
-    <span>Lihat Materi</span>
-    <i class="fa-solid fa-arrow-right ml-2"></i>
-  </div>
-</a>
+        <a href="/bank-materi.html" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-5 group-hover:bg-amber-400 group-hover:text-bi-navyDark transition-all duration-300">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+              Bank Materi
+            </h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+              Akses berbagai materi edukasi dan literasi yang dapat dibaca dan diunduh secara gratis.
+            </p>
+          </div>
+          <div class="flex items-center text-amber-400 text-xs font-semibold group-hover:translate-x-1 transition-transform">
+            <span>Lihat Materi</span>
+            <i class="fa-solid fa-arrow-right ml-2"></i>
+          </div>
+        </a>
 
         <!-- CARD 5: Buat Pengaduan -->
         <button type="button" onclick="openComplaintModal()" aria-haspopup="dialog" aria-controls="complaintModal" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 cursor-pointer border-amber-500/30 text-left w-full">
@@ -369,6 +367,71 @@
           <p class="text-xs text-slate-300">Senin - Jumat: 08.00 - 15.30 WIB</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= FORM PENGADUAN VISIT ================= -->
+  <section id="konsultasi" class="py-16 bg-bi-navyBase/40 border-t border-slate-700/60">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <span class="text-amber-400 text-xs font-bold tracking-widest uppercase mb-2 block">Konsultasi & Masukan</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+          Pengaduan Visit
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+          Sampaikan pertanyaan, masukan, atau kebutuhan informasi terkait Rupiah,
+          QRIS, BI-FAST, dan Pelindungan Konsumen.
+        </p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-700/80 shadow-xl">
+        <form id="contactForm" class="space-y-4">
+
+          <div>
+            <input type="text" id="nama" placeholder="Nama Lengkap" required class="w-full bg-bi-navyDark/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors">
+          </div>
+
+          <div>
+            <input type="email" id="email" placeholder="Email" required class="w-full bg-bi-navyDark/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors">
+          </div>
+
+          <div>
+            <input type="text" id="hp" placeholder="Nomor HP" required class="w-full bg-bi-navyDark/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors">
+          </div>
+
+          <div>
+            <select id="kategori" required class="w-full bg-bi-navyDark/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors">
+              <option value="">Pilih Kategori</option>
+              <option>Rupiah</option>
+              <option>QRIS</option>
+              <option>BI-FAST</option>
+              <option>Pelindungan Konsumen</option>
+            </select>
+          </div>
+
+          <div>
+            <textarea
+              id="pesan"
+              rows="5"
+              placeholder="Tuliskan pertanyaan atau masukan Anda..."
+              required class="w-full bg-bi-navyDark/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-bi-navyDark font-bold text-sm tracking-wide shadow-lg transition-all cursor-pointer active:scale-95">
+            Kirim Pertanyaan
+          </button>
+
+        </form>
+
+        <div id="successMessage" role="status" aria-live="polite" style="display:none;" class="mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center font-medium">
+          ✅ Terima kasih. Pertanyaan Anda telah diterima.
+        </div>
+        <div id="errorMessage" role="alert" style="display:none;" class="mt-4 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs text-center font-medium">
+          Pengiriman belum berhasil. Periksa koneksi Anda lalu coba lagi.
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -560,18 +623,18 @@
   </div>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="mt-auto bg-bi-navyDark border-t border-slate-700/80 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-      <div class="flex items-center space-x-2">
-        <img src="BI_Logo.png" alt="BI Logo" class="h-5 opacity-75" onerror="this.style.display='none'">
+  <footer class="mt-auto bg-bi-navyDark border-t border-slate-700/80 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4 text-center sm:text-left">
+      <div class="flex items-center space-x-3 justify-center sm:justify-start">
+        <img src="BI_Logo.png" alt="BI Logo" class="h-6 opacity-75" onerror="this.style.display='none'">
         <span>© 2026 Kantor Perwakilan Bank Indonesia Provinsi Jawa Timur. Hak Cipta Dilindungi.</span>
       </div>
       <div class="flex items-center space-x-4 flex-wrap justify-center">
-  <a href="/rupiah.html" class="hover:text-amber-400 transition-colors">Rupiah</a>
-  <a href="peka.html" class="hover:text-amber-400 transition-colors">Pelindungan Konsumen</a>
-  <a href="qris.html" class="hover:text-amber-400 transition-colors">QRIS</a>
-  <a href="/bank-materi.html" class="hover:text-amber-400 transition-colors">Bank Materi</a>
-</div>
+        <a href="/rupiah.html" class="hover:text-amber-400 transition-colors">Rupiah</a>
+        <a href="peka.html" class="hover:text-amber-400 transition-colors">Pelindungan Konsumen</a>
+        <a href="qris.html" class="hover:text-amber-400 transition-colors">QRIS</a>
+        <a href="/bank-materi.html" class="hover:text-amber-400 transition-colors">Bank Materi</a>
+      </div>
     </div>
   </footer>
 
@@ -612,7 +675,6 @@
       if (document.getElementById('prevNIK')) document.getElementById('prevNIK').innerText = nik || '...................................................';
       if (document.getElementById('prevAlamat')) document.getElementById('prevAlamat').innerText = alamat || '...................................................';
       if (document.getElementById('prevAlamatKTP')) document.getElementById('prevAlamatKTP').innerText = alamatKTP || '...................................................';
-      if (document.getElementById('prevAlamat')) document.getElementById('prevAlamat').innerText = alamat || '...................................................';
       if (document.getElementById('prevNoWA')) document.getElementById('prevNoWA').innerText = noWA || '...................................................';
       if (document.getElementById('prevEmail')) document.getElementById('prevEmail').innerText = email || '...................................................';
       if (document.getElementById('prevPerihal')) document.getElementById('prevPerihal').innerText = perihal || '...................................................';
@@ -699,6 +761,51 @@
       }, 300);
     }
 
+    // Google Apps Script Contact Form Handler
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwQd5Rv5Uww3uJukI35THylQW7GWhGFd6FDUJPXEJV3wlKkIGBIwJL2F85OgFEEsPtoFg/exec";
+
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const submitButton = this.querySelector('button[type="submit"]');
+      const successMessage = document.getElementById("successMessage");
+      const errorMessage = document.getElementById("errorMessage");
+      
+      successMessage.style.display = "none";
+      errorMessage.style.display = "none";
+      submitButton.disabled = true;
+      submitButton.textContent = "Mengirim...";
+
+      const data = {
+        nama: document.getElementById("nama").value,
+        email: document.getElementById("email").value,
+        hp: document.getElementById("hp").value,
+        kategori: document.getElementById("kategori").value,
+        pesan: document.getElementById("pesan").value
+      };
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        successMessage.style.display = "block";
+        this.reset();
+
+      } catch (error) {
+        console.error("Gagal mengirim pertanyaan:", error);
+        errorMessage.style.display = "block";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Kirim Pertanyaan";
+      }
+    });
+
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeComplaintModal();
@@ -706,153 +813,4 @@
     });
   </script>
 </body>
-</html>
-<!-- FORM KONSULTASI -->
-<section id="konsultasi" class="section">
-  <div class="container">
-
-    <div class="section-header">
-      <div class="section-label">Konsultasi & Masukan</div>
-      <h2 class="section-title">
-        Butuh Bantuan atau Informasi?
-      </h2>
-      <p class="section-desc">
-        Sampaikan pertanyaan, masukan, atau kebutuhan informasi terkait Rupiah,
-        QRIS, BI-FAST, dan Pelindungan Konsumen.
-      </p>
-    </div>
-
-    <form id="contactForm">
-
-      <div class="form-group">
-        <input type="text" id="nama" placeholder="Nama Lengkap" required>
-      </div>
-
-      <div class="form-group">
-        <input type="email" id="email" placeholder="Email" required>
-      </div>
-
-      <div class="form-group">
-        <input type="text" id="hp" placeholder="Nomor HP" required>
-      </div>
-
-      <div class="form-group">
-        <select id="kategori" required>
-          <option value="">Pilih Kategori</option>
-          <option>Rupiah</option>
-          <option>QRIS</option>
-          <option>BI-FAST</option>
-          <option>Pelindungan Konsumen</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <textarea
-          id="pesan"
-          rows="6"
-          placeholder="Tuliskan pertanyaan atau masukan Anda..."
-          required></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">
-        Kirim Pertanyaan
-      </button>
-
-    </form>
-
-    <div id="successMessage" role="status" aria-live="polite" style="display:none;">
-      ✅ Terima kasih. Pertanyaan Anda telah diterima.
-    </div>
-    <div id="errorMessage" role="alert" style="display:none;">
-      Pengiriman belum berhasil. Periksa koneksi Anda lalu coba lagi.
-    </div>
-
-  </div>
-</section>
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-    <div class="footer-bi">BI</div>
-    <div class="footer-name">
-      Bank Indonesia
-      <span>Kantor Perwakilan Provinsi Jawa Timur</span>
-    </div>
-  </div>
-  <div class="footer-tagline">Cinta · Bangga · Paham Rupiah</div>
-  <div class="footer-copy">Surabaya 2026 · Departemen Pengelolaan Uang · Bank Sentral Republik Indonesia</div>
-</footer>
-
-<script>
-// Tab functionality
-function showTab(id, btn) {
-  document.querySelectorAll('.fitur-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-<script>
-
-const scriptURL =
-"https://script.google.com/macros/s/AKfycbwQd5Rv5Uww3uJukI35THylQW7GWhGFd6FDUJPXEJV3wlKkIGBIwJL2F85OgFEEsPtoFg/exec";
-
-document
-.getElementById("contactForm")
-.addEventListener("submit", async function(e){
-
-e.preventDefault();
-
-const submitButton = this.querySelector('button[type="submit"]');
-const successMessage = document.getElementById("successMessage");
-const errorMessage = document.getElementById("errorMessage");
-successMessage.style.display = "none";
-errorMessage.style.display = "none";
-submitButton.disabled = true;
-submitButton.textContent = "Mengirim...";
-
-const data = {
-nama:document.getElementById("nama").value,
-email:document.getElementById("email").value,
-hp:document.getElementById("hp").value,
-kategori:document.getElementById("kategori").value,
-pesan:document.getElementById("pesan").value
-};
-
-try {
-const response = await fetch(scriptURL,{
-method:"POST",
-body:JSON.stringify(data)
-});
-
-if (!response.ok) {
-throw new Error(`HTTP ${response.status}`);
-}
-
-successMessage.style.display = "block";
-this.reset();
-
-} catch (error) {
-console.error("Gagal mengirim pertanyaan:", error);
-errorMessage.style.display = "block";
-} finally {
-submitButton.disabled = false;
-submitButton.textContent = "Kirim Pertanyaan";
-}
-
-});
-
-</script>
-</body>
-
 </html>
