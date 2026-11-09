@@ -91,7 +91,7 @@
   <footer class="border-t border-slate-700/80 bg-bi-navyDark py-5 text-center text-xs text-slate-400">© 2026 Kantor Perwakilan Bank Indonesia Provinsi Jawa Timur</footer>
 
   <script>
-    // Langsung aktifkan tombol dan arahkan ke link PDF tanpa proses fetch yang rawan error
+    // Langsung arahkan ke file PDF asli tanpa proses fetch
     document.querySelectorAll('[data-pdf]').forEach((control) => {
       const pdfPath = control.dataset.pdf;
       if (control.dataset.pdfAction === 'read') {
