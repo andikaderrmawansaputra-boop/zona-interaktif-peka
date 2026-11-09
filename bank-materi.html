@@ -91,35 +91,42 @@
 
   <footer class="border-t border-slate-700/80 bg-bi-navyDark py-5 text-center text-xs text-slate-400">© 2026 Kantor Perwakilan Bank Indonesia Provinsi Jawa Timur</footer>
 
-  <script>
-    document.querySelectorAll('[data-pdf]').forEach(async (control) => {
-      const pdfPath = control.dataset.pdf;
-      try {
-        const response = await fetch(pdfPath, { method: 'HEAD', cache: 'no-store' });
-        if (!response.ok || !response.headers.get('content-type')?.toLowerCase().includes('pdf')) return;
-
-        document.querySelectorAll(`[data-pdf="${pdfPath}"]`).forEach((action) => {
-          if (action.dataset.pdfAction === 'read') {
-            action.disabled = false;
-            action.addEventListener('click', () => window.open(pdfPath, '_blank', 'noopener,noreferrer'));
-          } else {
-            action.href = pdfPath;
-            action.download = pdfPath.split('/').pop();
-            action.classList.remove('pointer-events-none');
-            action.removeAttribute('aria-disabled');
-            action.removeAttribute('tabindex');
-          }
-        });
-        const status = control.closest('article')?.querySelector('.pdf-status');
-        if (status) {
-          status.classList.remove('text-amber-200/90');
-          status.classList.add('text-emerald-300');
-          status.innerHTML = '<i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i> File PDF tersedia dan siap dibaca atau diunduh.';
-        }
-      } catch (error) {
-        // Keep actions disabled when the file cannot be verified, avoiding broken PDF links.
+ <script>
+  document.querySelectorAll('[data-pdf]').forEach(async (control) => {
+    const pdfPath = control.dataset.pdf;
+    try {
+      // Menggunakan GET atau HEAD, cukup cek apakah response.ok (status 200)
+      const response = await fetch(pdfPath, { method: 'HEAD', cache: 'no-store' });
+      if (!response.ok) {
+        console.warn(`File tidak ditemukan (404): ${pdfPath}`);
+        return;
       }
-    });
-  </script>
+
+      // Mengaktifkan tombol Baca & Download
+      document.querySelectorAll(`[data-pdf="${pdfPath}"]`).forEach((action) => {
+        if (action.dataset.pdfAction === 'read') {
+          action.disabled = false;
+          action.addEventListener('click', () => window.open(pdfPath, '_blank', 'noopener,noreferrer'));
+        } else {
+          action.href = pdfPath;
+          action.download = pdfPath.split('/').pop();
+          action.classList.remove('pointer-events-none');
+          action.removeAttribute('aria-disabled');
+          action.removeAttribute('tabindex');
+        }
+      });
+
+      // Mengubah teks status menjadi hijau
+      const status = control.closest('article')?.querySelector('.pdf-status');
+      if (status) {
+        status.classList.remove('text-amber-200/90');
+        status.classList.add('text-emerald-300');
+        status.innerHTML = '<i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i> File PDF tersedia dan siap dibaca atau diunduh.';
+      }
+    } catch (error) {
+      console.error('Gagal memuat file:', error);
+    }
+  });
+</script>
 </body>
 </html>
