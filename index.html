@@ -241,7 +241,7 @@
   <section class="py-12 bg-bi-navyDark relative z-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         
         <!-- CARD 1: Rupiah -->
        <!-- CARD 1: Rupiah -->
@@ -295,7 +295,27 @@
           </div>
         </a>
 
-        <!-- CARD 4: Buat Pengaduan -->
+
+        <!-- CARD 4: Bank Materi -->
+<a href="/bank-materi.html" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+  <div>
+    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-5 group-hover:bg-amber-400 group-hover:text-bi-navyDark transition-all duration-300">
+      <i class="fa-solid fa-book-open"></i>
+    </div>
+    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+      Bank Materi
+    </h3>
+    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+      Akses berbagai materi edukasi dan literasi yang dapat dibaca dan diunduh secara gratis.
+    </p>
+  </div>
+  <div class="flex items-center text-amber-400 text-xs font-semibold group-hover:translate-x-1 transition-transform">
+    <span>Lihat Materi</span>
+    <i class="fa-solid fa-arrow-right ml-2"></i>
+  </div>
+</a>
+
+        <!-- CARD 5: Buat Pengaduan -->
         <button type="button" onclick="openComplaintModal()" aria-haspopup="dialog" aria-controls="complaintModal" class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 cursor-pointer border-amber-500/30 text-left w-full">
           <div>
             <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl mb-5 group-hover:bg-amber-400 group-hover:text-bi-navyDark transition-all duration-300">
@@ -546,11 +566,12 @@
         <img src="BI_Logo.png" alt="BI Logo" class="h-5 opacity-75" onerror="this.style.display='none'">
         <span>© 2026 Kantor Perwakilan Bank Indonesia Provinsi Jawa Timur. Hak Cipta Dilindungi.</span>
       </div>
-      <div class="flex items-center space-x-4">
-        <a href="/rupiah.html" class="hover:text-amber-400 transition-colors">Rupiah</a>
-        <a href="peka.html" class="hover:text-amber-400 transition-colors">Pelindungan Konsumen</a>
-        <a href="qris.html" class="hover:text-amber-400 transition-colors">QRIS</a>
-      </div>
+      <div class="flex items-center space-x-4 flex-wrap justify-center">
+  <a href="/rupiah.html" class="hover:text-amber-400 transition-colors">Rupiah</a>
+  <a href="peka.html" class="hover:text-amber-400 transition-colors">Pelindungan Konsumen</a>
+  <a href="qris.html" class="hover:text-amber-400 transition-colors">QRIS</a>
+  <a href="/bank-materi.html" class="hover:text-amber-400 transition-colors">Bank Materi</a>
+</div>
     </div>
   </footer>
 
