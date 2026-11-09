@@ -96,7 +96,7 @@
   <script>
     document.querySelectorAll('[data-pdf]').forEach((control) => {
       const rawPath = control.dataset.pdf;
-      // Encoding nama file agar spasi dan karakter khusus diubah menjadi URL yang aman (%20 dll)
+      // Otomatis mengenkoding spasi dan karakter khusus agar URL valid
       const encodedPath = rawPath.split('/').map(part => encodeURIComponent(part)).join('/');
 
       if (control.dataset.pdfAction === 'read') {
