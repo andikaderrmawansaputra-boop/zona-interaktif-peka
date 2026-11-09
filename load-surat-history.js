@@ -6,7 +6,15 @@ async function muatRiwayatSurat() {
 
   const { data, error } = await supabase
     .from("surat_history")
-    .select("id, judul, jenis_surat, created_at")
+    .select(`
+      id,
+      nama_lengkap,
+      perihal_surat,
+      nama_pujk,
+      kota_penandatanganan,
+      tanggal_surat,
+      created_at
+    `)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -14,5 +22,5 @@ async function muatRiwayatSurat() {
     return [];
   }
 
-  return data;
+  return data ?? [];
 }
