@@ -37,10 +37,7 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
-   NAVBAR
-========================= */
-
+/* NAVBAR */
 nav {
     background: var(--navy);
     padding: 0.85rem 2rem;
@@ -52,109 +49,28 @@ nav {
     z-index: 100;
 }
 
-.nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
+.nav-logo { display: flex; align-items: center; gap: 10px; }
 .nav-logo-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: linear-gradient(
-        135deg,
-        var(--teal-light),
-        var(--teal)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 800;
-    color: white;
+    width: 36px; height: 36px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--teal-light), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: white;
 }
+.nav-logo-text { font-size: 15px; font-weight: 700; color: white; }
+.nav-logo-sub { font-size: 10px; color: #8BAFD4; font-weight: 400; display: block; margin-top: -2px; }
 
-.nav-logo-text {
-    font-size: 15px;
-    font-weight: 700;
-    color: white;
-}
-
-.nav-logo-sub {
-    font-size: 10px;
-    color: #8BAFD4;
-    font-weight: 400;
-    display: block;
-    margin-top: -2px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #8BAFD4;
-    text-decoration: none;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.nav-links a:hover {
-    color: white;
-}
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { color: #8BAFD4; text-decoration: none; font-size: 13px; cursor: pointer; }
+.nav-links a:hover { color: white; }
 
 .btn-darurat {
-    background: var(--red);
-    color: white;
-    border: none;
-    padding: 0.5rem 1.1rem;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
+    background: var(--red); color: white; border: none;
+    padding: 0.5rem 1.1rem; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
 }
 
-.btn-darurat:hover {
-    background: #A93226;
-}
-
-/* =========================
-   HERO
-========================= */
-<div class="hero">
-    <div class="hero-badge">Program I CARE — BI Provinsi Jawa Timur</div>
-
-    <h1>Anda Tidak Sendiri.<br><span>Kami Siap Membantu.</span></h1>
-
-    <p>Jika Anda mengalami masalah transaksi keuangan...</p>
-
-    <!-- ✔️ Posisi tombol yang benar berada di dalam container hero -->
-    <div class="hero-cta">
-        <button class="btn-primary" onclick="scrollToSection('panduan')">
-            Lihat Langkah Saya →
-        </button>
-
-        <button class="btn-outline" onclick="window.open('https://bicara131.bi.go.id/', '_blank')">
-            Ajukan Pengaduan
-        </button>
-
-        <a class="btn-outline" href="mailto:mailingroom.kosb@ojk.go.id..." style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">
-            Pengaduan OJK
-        </a>
-    </div>
-</div>
+/* HERO CSS (MURNI CSS, TIDAK ADA HTML DI SINI) */
 .hero {
-    background:
-        linear-gradient(
-            135deg,
-            var(--navy) 0%,
-            #1A4A8A 60%,
-            var(--teal) 100%
-        );
-
+    background: linear-gradient(135deg, var(--navy) 0%, #1A4A8A 60%, var(--teal) 100%);
     padding: 3.5rem 2rem 2.5rem;
     text-align: center;
     position: relative;
@@ -165,84 +81,95 @@ nav {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(
-            circle at 70% 30%,
-            rgba(13,115,119,0.3) 0%,
-            transparent 60%
-        );
+    background: radial-gradient(circle at 70% 30%, rgba(13,115,119,0.3) 0%, transparent 60%);
 }
 
 .hero-badge {
     display: inline-block;
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
-    color: #B8E0E2;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    position: relative;
+    color: #B8E0E2; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; padding: 4px 14px; border-radius: 20px;
+    margin-bottom: 1rem; text-transform: uppercase; position: relative;
 }
 
 .hero h1 {
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: white;
-    line-height: 1.15;
-    margin-bottom: 0.8rem;
-    position: relative;
+    font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 0.8rem; position: relative;
 }
-
-.hero h1 span {
-    color: var(--teal-light);
-}
+.hero h1 span { color: var(--teal-light); }
 
 .hero p {
-    color: #8BAFD4;
-    font-size: 15px;
-    max-width: 520px;
-    margin: 0 auto 2rem;
-    line-height: 1.65;
-    position: relative;
+    color: #8BAFD4; font-size: 15px; max-width: 520px; margin: 0 auto 2rem; line-height: 1.65; position: relative;
+}
+
+.hero-cta {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative;
 }
 
 .btn-primary {
-    background: var(--teal);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
+    background: var(--teal); color: white; border: none; padding: 0.8rem 1.8rem;
+    border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
 }
-
-.btn-primary:hover {
-    background: var(--teal-light);
-    transform: translateY(-1px);
-}
+.btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
 
 .btn-outline {
-    background: transparent;
-    color: white;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    padding: 0.8rem 1.8rem;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
+    background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 0.8rem 1.8rem; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
 }
+.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+</style>
+</head>
 
-.btn-outline:hover {
-    border-color: white;
-    background: rgba(255,255,255,0.08);
-}
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-logo">
+        <div class="nav-logo-icon">P</div>
+        <div>
+            <div class="nav-logo-text">PEKA</div>
+            <span class="nav-logo-sub">Pelindungan Konsumen BI Jatim</span>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="#panduan">Panduan</a>
+        <a href="#jenis">Jenis Kasus</a>
+        <a href="#channel">Pengaduan</a>
+        <button class="btn-darurat" onclick="openModal('darurat')">🚨 Darurat</button>
+    </div>
+</nav>
+
+<!-- HERO SECTION (HTML POSISINYA DI SINI, DI DALAM BODY) -->
+<div class="hero">
+    <div class="hero-badge">Program I CARE — BI Provinsi Jawa Timur</div>
+
+    <h1>
+        Anda Tidak Sendiri.
+        <br>
+        <span>Kami Siap Membantu.</span>
+    </h1>
+
+    <p>
+        Jika Anda mengalami masalah transaksi keuangan —
+        penipuan, penagihan tidak etis, atau transaksi tidak sah —
+        ikuti panduan kami langkah demi langkah.
+    </p>
+
+    <div class="hero-cta">
+        <button class="btn-primary" onclick="scrollToSection('panduan')">
+            Lihat Langkah Saya →
+        </button>
+
+        <button class="btn-outline" onclick="window.open('https://bicara131.bi.go.id/', '_blank')">
+            Ajukan Pengaduan
+        </button>
+
+        <a class="btn-outline" href="mailto:mailingroom.kosb@ojk.go.id?subject=Pengaduan%20Konsumen%20OJK&body=Halo%20Tim%20OJK%2C%0D%0A%0D%0ASaya%20ingin%20mengajukan%20pengaduan%20terkait%20..." style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">
+            Pengaduan OJK
+        </a>
+    </div>
+</div>
 
 /* =========================
    EMERGENCY
