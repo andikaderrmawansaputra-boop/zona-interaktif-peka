@@ -1,436 +1,995 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PEKA — Pelindungan Konsumen BI Jatim</title>
 
-<title>PEKA — Pelindungan Konsumen BI Jatim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@400;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0F2D5C;
+      --navy2: #173F78;
+      --teal: #0D7377;
+      --teal-light: #14A8AE;
+      --amber: #D4820A;
+      --red: #C0392B;
+      --green: #1A7A4A;
+      --white: #FFFFFF;
+      --off: #F4F8FB;
+      --muted: #6B7C93;
+      --border: #DDE6F0;
+      --text: #1A2B3C;
+    }
 
-<style>
-:root {
-    --navy: #0F2D5C;
-    --navy2: #173F78;
-    --teal: #0D7377;
-    --teal-light: #14A8AE;
-    --amber: #D4820A;
-    --red: #C0392B;
-    --green: #1A7A4A;
-    --white: #FFFFFF;
-    --off: #F4F8FB;
-    --muted: #6B7C93;
-    --border: #DDE6F0;
-    --text: #1A2B3C;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--off);
-    color: var(--text);
-    min-height: 100vh;
-}
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--off);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
 
-/* NAVBAR */
-nav {
-    background: var(--navy);
-    padding: 0.85rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+    a {
+      text-decoration: none;
+    }
 
-.nav-logo { display: flex; align-items: center; gap: 10px; }
-.nav-logo-icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--teal-light), var(--teal));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 800; color: white;
-}
-.nav-logo-text { font-size: 15px; font-weight: 700; color: white; }
-.nav-logo-sub { font-size: 10px; color: #8BAFD4; font-weight: 400; display: block; margin-top: -2px; }
+    button, input, select, textarea {
+      font: inherit;
+    }
 
-.nav-links { display: flex; gap: 1.5rem; align-items: center; }
-.nav-links a { color: #8BAFD4; text-decoration: none; font-size: 13px; cursor: pointer; }
-.nav-links a:hover { color: white; }
+    nav {
+      background: var(--navy);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-.btn-darurat {
-    background: var(--red); color: white; border: none;
-    padding: 0.5rem 1.1rem; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
-}
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* HERO CSS (MURNI CSS, TIDAK ADA HTML DI SINI) */
-.hero {
-    background: linear-gradient(135deg, var(--navy) 0%, #1A4A8A 60%, var(--teal) 100%);
-    padding: 3.5rem 2rem 2.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+    }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 70% 30%, rgba(13,115,119,0.3) 0%, transparent 60%);
-}
+    .nav-logo-text {
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+    }
 
-.hero-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #B8E0E2; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.08em; padding: 4px 14px; border-radius: 20px;
-    margin-bottom: 1rem; text-transform: uppercase; position: relative;
-}
+    .nav-logo-sub {
+      display: block;
+      margin-top: -2px;
+      font-size: 10px;
+      color: #8BAFD4;
+    }
 
-.hero h1 {
-    font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 0.8rem; position: relative;
-}
-.hero h1 span { color: var(--teal-light); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
 
-.hero p {
-    color: #8BAFD4; font-size: 15px; max-width: 520px; margin: 0 auto 2rem; line-height: 1.65; position: relative;
-}
+    .nav-links a {
+      color: #8BAFD4;
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-.hero-cta {
-    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative;
-}
+    .nav-links a:hover {
+      color: white;
+    }
 
-.btn-primary {
-    background: var(--teal); color: white; border: none; padding: 0.8rem 1.8rem;
-    border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
-}
-.btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-darurat {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-.btn-outline {
-    background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3);
-    padding: 0.8rem 1.8rem; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
-}
-.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
-</style>
+    .btn-darurat:hover {
+      background: #A93226;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1A4A8A 60%, var(--teal) 100%);
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(13,115,119,0.3) 0%, transparent 60%);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #B8E0E2;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 span {
+      color: var(--teal-light);
+    }
+
+    .hero p {
+      color: #8BAFD4;
+      font-size: 15px;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 0.8rem 1.8rem;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      border-color: white;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .emergency {
+      background: #FEF3C7;
+      border-left: 4px solid var(--amber);
+      margin: 1.5rem;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .em-icon {
+      font-size: 22px;
+    }
+
+    .em-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 4px;
+    }
+
+    .em-body {
+      font-size: 12px;
+      color: #78350F;
+      line-height: 1.55;
+    }
+
+    .em-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .em-contact {
+      background: #92400E;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 2rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .step-header {
+      background: var(--navy);
+      color: white;
+      padding: 1rem 1.5rem;
+      margin: 1rem 1.5rem 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .step-header h2 {
+      font-size: 15px;
+    }
+
+    .step-header p {
+      font-size: 11px;
+      color: #8BAFD4;
+      margin-top: 2px;
+    }
+
+    .steps-wrap {
+      margin: 0 1.5rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .step-item {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .step-item:hover {
+      background: #F8FBFF;
+    }
+
+    .step-num {
+      width: 52px;
+      min-height: 72px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      background: var(--teal);
+    }
+
+    .step-item:nth-child(2) .step-num {
+      background: #1A6EA8;
+    }
+
+    .step-item:nth-child(3) .step-num {
+      background: var(--navy);
+    }
+
+    .step-item:nth-child(4) .step-num {
+      background: var(--green);
+    }
+
+    .step-content {
+      padding: 0.9rem 1rem;
+      flex: 1;
+    }
+
+    .step-tag {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 3px;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .step-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: var(--border);
+      font-size: 18px;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .cat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-top: 3px solid transparent;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(15,45,92,0.08);
+    }
+
+    .type-fraud { border-top-color: var(--red); }
+    .type-debt { border-top-color: var(--amber); }
+    .type-credit { border-top-color: var(--teal); }
+    .type-data { border-top-color: var(--navy); }
+
+    .cat-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .cat-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .cat-desc {
+      font-size: 10.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .channel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .channel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .channel:hover {
+      border-color: var(--teal);
+    }
+
+    .ch-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .ch-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .ch-desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .ch-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-primary {
+      background: #E0F5F5;
+      color: var(--teal);
+    }
+
+    .badge-warn {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .quiz-box {
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      border-radius: 14px;
+      margin: 2rem 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .quiz-box .quiz-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .quiz-box h2 {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .quiz-box p {
+      font-size: 12px;
+      color: #C8D9EB;
+      max-width: 520px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .quiz-button {
+      margin-top: 1.2rem;
+      background: white;
+      color: var(--navy);
+      border: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .quiz-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 0 1.5rem;
+      color: white;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .cta-box h3 span {
+      color: var(--teal-light);
+      font-style: italic;
+      font-family: 'Lora', serif;
+    }
+
+    .cta-box p {
+      font-size: 12px;
+      color: #8BAFD4;
+      margin-bottom: 1rem;
+    }
+
+    .cta-tips {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tip-pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #8BAFD4;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    footer a {
+      color: var(--teal-light);
+      text-decoration: none;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,40,0.72);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: min(100%, 560px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      animation: popUp 0.25s ease;
+    }
+
+    @keyframes popUp {
+      from {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      float: right;
+      background: var(--off);
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .modal-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+    }
+
+    .action-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .action-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+
+    .action-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        padding: 0.7rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .cat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .emergency, .step-header, .steps-wrap, .quiz-box, .cta-box {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<nav>
+  <nav>
     <div class="nav-logo">
-        <div class="nav-logo-icon">P</div>
-        <div>
-            <div class="nav-logo-text">PEKA</div>
-            <span class="nav-logo-sub">Pelindungan Konsumen BI Jatim</span>
-        </div>
+      <div class="nav-logo-icon">P</div>
+      <div>
+        <div class="nav-logo-text">PEKA</div>
+        <span class="nav-logo-sub">Pelindungan Konsumen BI Jatim</span>
+      </div>
     </div>
+
     <div class="nav-links">
-        <a href="index.html">Beranda</a>
-        <a href="#panduan">Panduan</a>
-        <a href="#jenis">Jenis Kasus</a>
-        <a href="#channel">Pengaduan</a>
-        <button class="btn-darurat" onclick="openModal('darurat')">🚨 Darurat</button>
+      <a href="#panduan">Panduan</a>
+      <a href="#kategori">Kategori</a>
+      <a href="#saluran">Saluran</a>
+      <a href="#quiz">Quiz</a>
     </div>
-</nav>
 
-<!-- HERO SECTION (HTML POSISINYA DI SINI, DI DALAM BODY) -->
-<div class="hero">
-    <div class="hero-badge">Program I CARE — BI Provinsi Jawa Timur</div>
+    <button class="btn-darurat" onclick="window.open('tel:+62223100000')">Darurat</button>
+  </nav>
 
-    <h1>
-        Anda Tidak Sendiri.
-        <br>
-        <span>Kami Siap Membantu.</span>
-    </h1>
-
+  <header class="hero">
+    <div class="hero-badge">PEKA</div>
+    <h1>Pelindungan Konsumen <span>Bank Indonesia Jatim</span></h1>
     <p>
-        Jika Anda mengalami masalah transaksi keuangan —
-        penipuan, penagihan tidak etis, atau transaksi tidak sah —
-        ikuti panduan kami langkah demi langkah.
+      Kenali langkah aman saat menghadapi masalah fintech, pinjaman, investasi,
+      hingga dugaan penipuan. PEKA membantu Anda memahami jalur pengaduan yang tepat.
     </p>
 
     <div class="hero-cta">
-        <button class="btn-primary" onclick="scrollToSection('panduan')">
-            Lihat Langkah Saya →
-        </button>
+      <button class="btn-primary" onclick="scrollToSection('panduan')">
+        Lihat Langkah Saya →
+      </button>
 
-        <button class="btn-outline" onclick="window.open('https://bicara131.bi.go.id/', '_blank')">
-            Ajukan Pengaduan
-        </button>
+      <button class="btn-outline" onclick="window.open('https://bicara131.bi.go.id/', '_blank')">
+        Ajukan Pengaduan
+      </button>
 
-        <a class="btn-outline" href="mailto:mailingroom.kosb@ojk.go.id?subject=Pengaduan%20Konsumen%20OJK&body=Halo%20Tim%20OJK%2C%0D%0A%0D%0ASaya%20ingin%20mengajukan%20pengaduan%20terkait%20..." style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">
-            Pengaduan OJK
-        </a>
-        </div>
-</div>
+      <a
+        class="btn-outline"
+        href="mailto:mailingroom.kosb@ojk.go.id?subject=Pengaduan%20Konsumen%20OJK&body=Halo%20Tim%20OJK%2C%0D%0A%0D%0ASaya%20ingin%20mengajukan%20pengaduan%20terkait%20..."
+        style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none;"
+      >
+        Pengaduan OJK
+      </a>
+    </div>
+  </header>
 
-<!-- =========================
-     EMERGENCY
-========================= -->
-
-<div class="emergency">
+  <div class="emergency">
     <div class="em-icon">⚠️</div>
     <div>
-        <div class="em-title">Jika Anda Baru Saja Menjadi Korban — SEGERA Lakukan Ini</div>
-        <div class="em-body">
-            <strong>STOP transaksi.</strong> Jangan kirim uang atau data apapun lagi.
-            Segera hubungi bank atau penyedia layanan Anda untuk <strong>blokir akun</strong>.
-        </div>
-        <div class="em-contacts">
-            <a class="em-contact" href="tel:131">Bank Indonesia: 131</a>
-            <a class="em-contact" href="tel:157">OJK: 157</a>
-            <a class="em-contact" href="tel:150">Satgas PASTI: 150</a>
-        </div>
+      <div class="em-title">Segera ambil tindakan jika transaksi mencurigakan</div>
+      <div class="em-body">
+        Jangan menunggu sampai kerugian makin besar. Simpan bukti, blokir rekening,
+        dan laporkan ke pihak yang berwenang.
+      </div>
+      <div class="em-contacts">
+        <a class="em-contact" href="tel:+622131000">BI Call</a>
+        <a class="em-contact" href="https://bicara131.bi.go.id/" target="_blank">Layanan BI</a>
+      </div>
     </div>
-</div>
+  </div>
 
+  <section id="panduan">
+    <div class="section-title">Langkah cepat</div>
+    <div class="section-sub">Ikuti urutan ini agar pengaduan Anda lebih tertata dan cepat ditangani</div>
 
-<!-- =========================
-     PANDUAN
-========================= -->
-
-<div id="panduan" style="margin-top:2rem">
     <div class="step-header">
-        <div>
-            <h2>Panduan Langkah demi Langkah</h2>
-            <p>Ikuti urutan ini setelah mengalami masalah transaksi keuangan</p>
-        </div>
+      <h2>Alur penanganan masalah konsumen</h2>
+      <p>4 langkah penting untuk memverifikasi, melaporkan, dan menuntaskan kasus</p>
     </div>
 
     <div class="steps-wrap">
-        <div class="step-item" onclick="openModal('step1')">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <div class="step-tag">Segera - dalam 1 jam</div>
-                <div class="step-title">Stop & Amankan Akun</div>
-                <div class="step-desc">Blokir kartu, bekukan rekening, dan ubah password.</div>
-            </div>
-            <div class="step-arrow">›</div>
+      <div class="step-item" onclick="openModal('1')">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-tag">Identifikasi</div>
+          <div class="step-title">Kumpulkan bukti transaksi</div>
+          <div class="step-desc">Screenshot, transfer, chat, kontrak, dan nomor rekening yang terlibat agar kasus mudah diverifikasi.</div>
         </div>
+        <div class="step-arrow">›</div>
+      </div>
 
-        <div class="step-item" onclick="openModal('step2')">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <div class="step-tag">Dalam 24 jam</div>
-                <div class="step-title">Dokumentasikan Bukti</div>
-                <div class="step-desc">Screenshot, rekam riwayat transaksi, dan simpan nomor referensi.</div>
-            </div>
-            <div class="step-arrow">›</div>
+      <div class="step-item" onclick="openModal('2')">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-tag">Verifikasi</div>
+          <div class="step-title">Cek apakah produk atau layanan sudah jelas</div>
+          <div class="step-desc">Pastikan syarat, biaya, serta hak Anda sudah diinformasikan secara transparan sebelum melanjutkan.</div>
         </div>
+        <div class="step-arrow">›</div>
+      </div>
 
-        <div class="step-item" onclick="openModal('step3')">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <div class="step-tag">Dalam 3 hari</div>
-                <div class="step-title">Laporkan ke Pihak Berwenang</div>
-                <div class="step-desc">Hubungi bank, OJK, BI, atau Polisi sesuai kasus.</div>
-            </div>
-            <div class="step-arrow">›</div>
+      <div class="step-item" onclick="openModal('3')">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-tag">Laporkan</div>
+          <div class="step-title">Ajukan pengaduan ke kanal resmi</div>
+          <div class="step-desc">Laporkan ke Bank Indonesia atau lembaga pengawas yang berwenang sesuai jenis kasus dan pihak yang terlibat.</div>
         </div>
+        <div class="step-arrow">›</div>
+      </div>
 
-        <div class="step-item" onclick="openModal('step4')">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <div class="step-tag">Pantau terus</div>
-                <div class="step-title">Pantau & Tindak Lanjut</div>
-                <div class="step-desc">Catat nomor tiket pengaduan dan pantau perkembangan kasus.</div>
-            </div>
-            <div class="step-arrow">›</div>
+      <div class="step-item" onclick="openModal('4')">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-tag">Pantau</div>
+          <div class="step-title">Ikuti perkembangan dan simpan jawaban</div>
+          <div class="step-desc">Catat nomor pengaduan, nama petugas, dan jadwal tindak lanjut agar proses lebih terarah.</div>
         </div>
+        <div class="step-arrow">›</div>
+      </div>
     </div>
-</div>
+  </section>
 
-
-<!-- =========================
-     JENIS KASUS
-========================= -->
-
-<section id="jenis">
-    <div class="section-title">Kasus Saya Termasuk Yang Mana?</div>
-    <div class="section-sub">Pilih jenis kasus untuk melihat panduan spesifik</div>
+  <section id="kategori">
+    <div class="section-title">Jenis masalah yang umum terjadi</div>
+    <div class="section-sub">Pilih kategori yang paling dekat dengan kasus Anda</div>
 
     <div class="cat-grid">
-        <div class="cat-card type-fraud" onclick="openModal('fraud')">
-            <div class="cat-icon">🚫</div>
-            <div class="cat-title">Penipuan / Phishing</div>
-            <div class="cat-desc">Transaksi tanpa sepengetahuan, akun diretas, atau link palsu.</div>
-        </div>
+      <div class="cat-card type-fraud" onclick="openModal('fraud')">
+        <div class="cat-icon">🕵️</div>
+        <div class="cat-title">Penipuan & investasi bodong</div>
+        <div class="cat-desc">Promosi tidak jelas, pinjaman palsu, atau tawaran investasi yang menjanjikan keuntungan terlalu cepat.</div>
+      </div>
 
-        <div class="cat-card type-debt" onclick="openModal('debt')">
-            <div class="cat-icon">📞</div>
-            <div class="cat-title">Penagihan Tidak Etis</div>
-            <div class="cat-desc">Debt collector mengancam, mempermalukan, atau menghubungi di luar waktu wajar.</div>
-        </div>
+      <div class="cat-card type-debt" onclick="openModal('debt')">
+        <div class="cat-icon">💸</div>
+        <div class="cat-title">Utang & pinjaman</div>
+        <div class="cat-desc">Bunga tersamar, biaya tambahan, atau proses persetujuan pinjaman yang tidak transparan.</div>
+      </div>
 
-        <div class="cat-card type-credit" onclick="openModal('credit')">
-            <div class="cat-icon">💳</div>
-            <div class="cat-title">Masalah Kredit / Pinjaman</div>
-            <div class="cat-desc">Keringanan, restrukturisasi, atau bunga tidak sesuai.</div>
-        </div>
+      <div class="cat-card type-credit" onclick="openModal('credit')">
+        <div class="cat-icon">💳</div>
+        <div class="cat-title">Kartu & kredit</div>
+        <div class="cat-desc">Transaksi mencurigakan, tagihan tidak sesuai, atau keterlambatan klarifikasi dari penyedia layanan.</div>
+      </div>
 
-        <div class="cat-card type-data" onclick="openModal('data')">
-            <div class="cat-icon">🔒</div>
-            <div class="cat-title">Kebocoran Data</div>
-            <div class="cat-desc">Data pribadi disebarkan tanpa izin atau rekening digunakan orang lain.</div>
-        </div>
+      <div class="cat-card type-data" onclick="openModal('data')">
+        <div class="cat-icon">🔐</div>
+        <div class="cat-title">Data & keamanan</div>
+        <div class="cat-desc">Data pribadi dicuri, nomor rekening dipakai tanpa izin, atau keamanan akun tidak terjaga.</div>
+      </div>
     </div>
-</section>
+  </section>
 
-
-<!-- =========================
-     CHANNEL
-========================= -->
-
-<section id="channel">
-    <div class="section-title">Kemana Saya Harus Melapor?</div>
-    <div class="section-sub">Pilih kanal sesuai jenis masalah Anda</div>
+  <section id="saluran">
+    <div class="section-title">Saluran laporan resmi</div>
+    <div class="section-sub">Gunakan kanal yang sesuai dengan jenis kasus Anda</div>
 
     <div class="channel-list">
-        <div class="channel" onclick="openModal('bi')">
-            <div class="ch-icon" style="background:#E8F0FE">🏛️</div>
-            <div>
-                <div class="ch-name">Bank Indonesia — BICARA 131</div>
-                <div class="ch-desc">Pengaduan terkait layanan sistem pembayaran.</div>
-            </div>
-            <div class="ch-badge badge-primary">Prioritas</div>
+      <div class="channel" onclick="window.open('https://bicara131.bi.go.id/', '_blank')">
+        <div class="ch-icon" style="background:#E0F5F5;">📞</div>
+        <div>
+          <div class="ch-name">BI Care / BI Bicara</div>
+          <div class="ch-desc">Layanan pengaduan dan informasi terkait sektor keuangan</div>
         </div>
+        <span class="ch-badge badge-primary">Resmi</span>
+      </div>
 
-        <div class="channel" onclick="openModal('ojk')">
-            <div class="ch-icon" style="background:#FEF3C7">⚖️</div>
-            <div>
-                <div class="ch-name">OJK — 157</div>
-                <div class="ch-desc">Pengaduan lembaga keuangan.</div>
-            </div>
-            <div class="ch-badge badge-primary">Prioritas</div>
+      <div class="channel" onclick="window.open('https://www.ojk.go.id/', '_blank')">
+        <div class="ch-icon" style="background:#FFF4D6;">🛡️</div>
+        <div>
+          <div class="ch-name">Pengaduan OJK</div>
+          <div class="ch-desc">Untuk layanan keuangan, fintech, perbankan, dan perlindungan konsumen</div>
         </div>
-
-        <div class="channel" onclick="openModal('satgas')">
-            <div class="ch-icon" style="background:#FCE8E6">🛡️</div>
-            <div>
-                <div class="ch-name">Satgas PASTI — 150</div>
-                <div class="ch-desc">Investasi ilegal dan pinjol ilegal.</div>
-            </div>
-            <div class="ch-badge badge-warn">Ilegal</div>
-        </div>
-
-        <div class="channel" onclick="openModal('polisi')">
-            <div class="ch-icon" style="background:#F3E8FF">👮</div>
-            <div>
-                <div class="ch-name">Polisi — 110</div>
-                <div class="ch-desc">Penipuan dan tindak pidana.</div>
-            </div>
-            <div class="ch-badge badge-warn">Pidana</div>
-        </div>
+        <span class="ch-badge badge-warn">Penting</span>
+      </div>
     </div>
-</section>
+  </section>
 
+  <div class="quiz-box" id="quiz">
+    <div class="quiz-icon">🧠</div>
+    <h2>Sudah paham langkahnya?</h2>
+    <p>Uji pemahaman Anda dalam 30 detik agar tahu apakah Anda sudah siap melaporkan kasus dengan benar.</p>
+    <button class="quiz-button" onclick="openModal('quiz')">Mulai Kuiz</button>
+  </div>
 
-<!-- =========================
-     QUIZ
-========================= -->
+  <section>
+    <div class="cta-box">
+      <h3>Jangan <span>menunggu</span> sampai terlambat</h3>
+      <p>Semakin cepat Anda mengumpulkan bukti, semakin besar peluang pengaduan ditangani dengan tepat.</p>
 
-<div class="quiz-box">
-    <div class="quiz-icon">🎓</div>
-    <h2>Sudah Paham Tentang PEKA?</h2>
-    <p>
-        Uji pemahaman Anda melalui kuis singkat tentang pelindungan konsumen.
-        Dapatkan sertifikat setelah memperoleh nilai minimal <strong>70</strong>.
-    </p>
-    <button class="quiz-button" onclick="startQuiz()">📝 Mulai Quiz PEKA</button>
-    <a class="quiz-button quiz-link" href="zona-peka.html">⚡ Zona Interaktif Pre-test / Post-test</a>
-</div>
-
-
-<!-- =========================
-     CTA
-========================= -->
-
-<div class="cta-box">
-    <h3>Ingat Selalu: <span>"Kalau Ragu, Stop Dulu"</span></h3>
-    <p>Jika ada yang memaksa Anda bergerak cepat — berhenti sejenak dan verifikasi.</p>
-    <div class="cta-tips">
-        <span class="tip-pill">⏸ Stop dulu</span>
-        <span class="tip-pill">🔍 Verifikasi sumber</span>
-        <span class="tip-pill">📞 Hubungi orang dipercaya</span>
-        <span class="tip-pill">🏛️ Laporkan jika ragu</span>
+      <div class="cta-tips">
+        <span class="tip-pill">Simpan bukti</span>
+        <span class="tip-pill">Blokir akun</span>
+        <span class="tip-pill">Laporkan segera</span>
+      </div>
     </div>
-</div>
+  </section>
 
+  <footer>
+    PEKA — Pelindungan Konsumen BI Jatim<br>
+    Sumber informasi: Bank Indonesia, OJK, dan kanal pengaduan resmi.<br>
+    <a href="#top">Kembali ke atas</a>
+  </footer>
 
-<!-- =========================
-     FOOTER
-========================= -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-title" id="modalTitle">Panduan</div>
+      <div class="modal-sub" id="modalSubtitle">Langkah penting yang perlu Anda lakukan</div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
 
-<footer>
-    <strong style="color:white">PEKA</strong> — Program I CARE, Bank Indonesia Provinsi Jawa Timur 2026
-    <br>
-    Hotline BI: <a href="tel:131">131</a> · OJK: <a href="tel:157">157</a> · Satgas PASTI: <a href="tel:150">150</a> · Polisi: <a href="tel:110">110</a>
-    <br>
-    <span style="font-size:10px;color:#4A6A8A">Website ini bersifat informatif. Untuk pengaduan resmi, hubungi kanal terkait.</span>
-</footer>
-
-
-<!-- =====================================================
-     MODAL UTAMA
-===================================================== -->
-
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" id="modalContent"></div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="zona-peka-config.js"></script>
-<script>
-const modals = {
-    darurat: {
-        title: "🚨 Langkah Darurat Sekarang",
-        sub: "Jika Anda baru saja mengalami kejadian — lakukan ini segera",
-        content: [
-            { n: 1, t: "Blokir kartu & rekening", d: "Hubungi bank Anda dan minta pemblokiran atau pembekuan rekening." },
-            { n: 2, t: "Ubah password", d: "Ubah password mobile banking, email, dan akun terkait." }
-        ]
+  <script>
+    function scrollToSection(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
-};
 
-function openModal(type) {
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
-    overlay.classList.add('active');
-    
-    content.innerHTML = `
-        <button class="modal-close" onclick="closeModalBtn()">×</button>
-        <div class="modal-title">${modals[type] ? modals[type].title : 'Informasi'}</div>
-        <div class="modal-sub">${modals[type] ? modals[type].sub : ''}</div>
-        <p style="font-size:12px; line-height:1.6; color:var(--muted);">Silakan ikuti instruksi resmi atau hubungi hotline darurat terkait.</p>
-    `;
-}
+    function openModal(type) {
+      const modal = document.getElementById('infoModal');
+      const title = document.getElementById('modalTitle');
+      const subtitle = document.getElementById('modalSubtitle');
+      const content = document.getElementById('modalContent');
 
-function closeModal(event) {
-    if (event.target.id === 'modalOverlay') {
-        document.getElementById('modalOverlay').classList.remove('active');
+      const data = {
+        '1': {
+          title: 'Langkah 1: Kumpulkan bukti',
+          subtitle: 'Bukti transaksi adalah kunci validasi',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Screenshot transaksi</div><div class="action-desc">Simpan bukti transfer, status transaksi, dan chat penjual atau pihak yang terlibat.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Catat detail penting</div><div class="action-desc">Tuliskan nama aplikasi, rekening, nominal, tanggal, serta kronologi kejadian singkat.</div></div></div><div class="action-item"><div class="action-num">3</div><div><div class="action-title">Jangan hapus data</div><div class="action-desc">Bukti digital lama sering dibutuhkan saat proses verifikasi dan penelusuran lebih lanjut.</div></div></div>'
+        },
+        '2': {
+          title: 'Langkah 2: Verifikasi produk',
+          subtitle: 'Pastikan semua syarat jelas sebelum lanjut',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Cek legalitas</div><div class="action-desc">Periksa status perusahaan, izin usaha, dan peraturan yang berlaku di sektor terkait.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Baca syarat dan biaya</div><div class="action-desc">Periksa bunga, biaya administrasi, denda, serta hak dan kewajiban pengguna secara detail.</div></div></div><div class="action-item"><div class="action-num">3</div><div><div class="action-title">Bandingkan dengan kanal resmi</div><div class="action-desc">Jika ada yang mencurigakan, mintalah klarifikasi dari penyedia layanan atau platform resmi.</div></div></div>'
+        },
+        '3': {
+          title: 'Langkah 3: Ajukan laporan',
+          subtitle: 'Laporkan ke kanal yang tepat',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Pilih pengaduan resmi</div><div class="action-desc">Gunakan BI Bicara, OJK, atau kanal resmi lainnya sesuai jenis kasus yang Anda alami.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Kirim semua bukti</div><div class="action-desc">Lampirkan file bukti, kronologi, nama rekening, dan kontak yang mudah dihubungi.</div></div></div><div class="action-item"><div class="action-num">3</div><div><div class="action-title">Catat nomor laporan</div><div class="action-desc">Simpan nomor pengaduan agar lebih mudah memantau perkembangan dan menindaklanjuti balasan.</div></div></div>'
+        },
+        '4': {
+          title: 'Langkah 4: Pantau dan tindak lanjut',
+          subtitle: 'Pengaduan perlu ada jejak tindak lanjut',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Pantau respons</div><div class="action-desc">Periksa email, SMS, aplikasi, atau kanal pengaduan yang Anda gunakan secara berkala.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Siapkan dokumen tambahan</div><div class="action-desc">Jika diminta, kirimkan data tambahan seperti kontrak, bukti transfer, dan identitas Anda.</div></div></div><div class="action-item"><div class="action-num">3</div><div><div class="action-title">Jaga komunikasi tetap jelas</div><div class="action-desc">Jangan berubah-ubah dalam kronologi kejadian agar proses pengaduan lebih konsisten.</div></div></div>'
+        },
+        'fraud': {
+          title: 'Penipuan & investasi bodong',
+          subtitle: 'Tanda-tanda dan langkah aman',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Ciri-ciri umum</div><div class="action-desc">Janji keuntungan besar dalam waktu singkat, penawaran tanpa izin, dan tekanan untuk segera transfer.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Langsung lakukan</div><div class="action-desc">Blokir rekening atau nomor yang terlibat, simpan bukti, lalu laporkan ke pengaduan resmi.</div></div></div>'
+        },
+        'debt': {
+          title: 'Utang & pinjaman',
+          subtitle: 'Waspada terhadap biaya dan persyaratan',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Periksa persetujuan</div><div class="action-desc">Pastikan bunga, biaya, tenor, dan proses persetujuan sudah dijelaskan secara transparan.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Laporkan kalau tidak sesuai</div><div class="action-desc">Jika ada biaya tambahan atau perubahan tanpa kesepakatan, ajukan pengaduan segera.</div></div></div>'
+        },
+        'credit': {
+          title: 'Kartu & kredit',
+          subtitle: 'Transaksi tak wajar perlu diverifikasi',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Cek mutasi</div><div class="action-desc">Lihat semua transaksi, tagihan, dan aktivitas yang tidak Anda kenali.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Hubungi penyedia layanan</div><div class="action-desc">Laporkan blokir kartu, transaksi mencurigakan, atau data yang berubah tanpa izin.</div></div></div>'
+        },
+        'data': {
+          title: 'Data & keamanan',
+          subtitle: 'Lindungi identitas Anda segera',
+          content: '<div class="action-item"><div class="action-num">1</div><div><div class="action-title">Ubah semua kata sandi</div><div class="action-desc">Lakukan perubahan pada aplikasi, email, dan rekening yang mungkin terpapar.</div></div></div><div class="action-item"><div class="action-num">2</div><div><div class="action-title">Laporkan ke otoritas</div><div class="action-desc">Simpan bukti kebocoran data agar proses pengaduan lebih kuat dan lebih cepat.</div></div></div>'
+        },
+        'quiz': {
+          title: 'Mini kuiz',
+          subtitle: 'Pertanyaan cepat untuk memandu tindakan',
+          content: '<div class="action-item"><div class="action-num">Q</div><div><div class="action-title">Apa yang harus Anda lakukan terlebih dahulu?</div><div class="action-desc">Jawaban terbaik: kumpulkan bukti transaksi dan catat kronologi kejadian sebelum melapor.</div></div></div>'
+        }
+      };
+
+      const item = data[type] || data['1'];
+      title.textContent = item.title;
+      subtitle.textContent = item.subtitle;
+      content.innerHTML = item.content;
+      modal.classList.add('active');
     }
-}
 
-function closeModalBtn() {
-    document.getElementById('modalOverlay').classList.remove('active');
-}
+    function closeModal() {
+      const modal = document.getElementById('infoModal');
+      if (modal) modal.classList.remove('active');
+    }
+  </script>
 
-function scrollToSection(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
-
-function startQuiz() {
-    alert("Fitur Quiz PEKA dimuat.");
-}
-</script>
 </body>
 </html>
