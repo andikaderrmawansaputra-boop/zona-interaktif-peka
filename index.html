@@ -707,3 +707,152 @@
   </script>
 </body>
 </html>
+<!-- FORM KONSULTASI -->
+<section id="konsultasi" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label">Konsultasi & Masukan</div>
+      <h2 class="section-title">
+        Butuh Bantuan atau Informasi?
+      </h2>
+      <p class="section-desc">
+        Sampaikan pertanyaan, masukan, atau kebutuhan informasi terkait Rupiah,
+        QRIS, BI-FAST, dan Pelindungan Konsumen.
+      </p>
+    </div>
+
+    <form id="contactForm">
+
+      <div class="form-group">
+        <input type="text" id="nama" placeholder="Nama Lengkap" required>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="hp" placeholder="Nomor HP" required>
+      </div>
+
+      <div class="form-group">
+        <select id="kategori" required>
+          <option value="">Pilih Kategori</option>
+          <option>Rupiah</option>
+          <option>QRIS</option>
+          <option>BI-FAST</option>
+          <option>Pelindungan Konsumen</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <textarea
+          id="pesan"
+          rows="6"
+          placeholder="Tuliskan pertanyaan atau masukan Anda..."
+          required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Kirim Pertanyaan
+      </button>
+
+    </form>
+
+    <div id="successMessage" role="status" aria-live="polite" style="display:none;">
+      ✅ Terima kasih. Pertanyaan Anda telah diterima.
+    </div>
+    <div id="errorMessage" role="alert" style="display:none;">
+      Pengiriman belum berhasil. Periksa koneksi Anda lalu coba lagi.
+    </div>
+
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-bi">BI</div>
+    <div class="footer-name">
+      Bank Indonesia
+      <span>Kantor Perwakilan Provinsi Jawa Timur</span>
+    </div>
+  </div>
+  <div class="footer-tagline">Cinta · Bangga · Paham Rupiah</div>
+  <div class="footer-copy">Surabaya 2026 · Departemen Pengelolaan Uang · Bank Sentral Republik Indonesia</div>
+</footer>
+
+<script>
+// Tab functionality
+function showTab(id, btn) {
+  document.querySelectorAll('.fitur-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<script>
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbwQd5Rv5Uww3uJukI35THylQW7GWhGFd6FDUJPXEJV3wlKkIGBIwJL2F85OgFEEsPtoFg/exec";
+
+document
+.getElementById("contactForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const submitButton = this.querySelector('button[type="submit"]');
+const successMessage = document.getElementById("successMessage");
+const errorMessage = document.getElementById("errorMessage");
+successMessage.style.display = "none";
+errorMessage.style.display = "none";
+submitButton.disabled = true;
+submitButton.textContent = "Mengirim...";
+
+const data = {
+nama:document.getElementById("nama").value,
+email:document.getElementById("email").value,
+hp:document.getElementById("hp").value,
+kategori:document.getElementById("kategori").value,
+pesan:document.getElementById("pesan").value
+};
+
+try {
+const response = await fetch(scriptURL,{
+method:"POST",
+body:JSON.stringify(data)
+});
+
+if (!response.ok) {
+throw new Error(`HTTP ${response.status}`);
+}
+
+successMessage.style.display = "block";
+this.reset();
+
+} catch (error) {
+console.error("Gagal mengirim pertanyaan:", error);
+errorMessage.style.display = "block";
+} finally {
+submitButton.disabled = false;
+submitButton.textContent = "Kirim Pertanyaan";
+}
+
+});
+
+</script>
+</body>
+
+</html>
