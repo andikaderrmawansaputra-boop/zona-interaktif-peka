@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b2242">
+  <title>PeKA ARCADE | Bank Indonesia Jawa Timur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="peka-arcade.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" defer></script>
+  <script src="zona-peka-config.js" defer></script>
+  <script src="peka-arcade.js" defer></script>
+</head>
+<body>
+  <header class="arcade-header">
+    <a class="brand" href="peka.html">
+      <img src="BI_Logo.png" alt="Bank Indonesia">
+      <span>I CARE U <small>Bank Indonesia Jawa Timur</small></span>
+    </a>
+    <a class="back-link" href="peka.html">&larr; Kembali ke PeKA</a>
+  </header>
+
+  <main class="arcade-shell">
+    <section class="hero">
+      <span class="eyebrow">Pelindungan Konsumen Arcade</span>
+      <h1>PeKA <em>ARCADE</em></h1>
+      <p>Kenali modus, pilih tindakan aman, dan tantang teman dalam lima permainan cepat.</p>
+    </section>
+
+    <p id="arcade-status" class="notice" role="status" aria-live="polite">
+      Memeriksa konfigurasi layanan permainan…
+    </p>
+
+    <section id="entry-panel" class="entry-grid">
+      <article class="card">
+        <span class="card-kicker">Peserta</span>
+        <h2>Gabung permainan</h2>
+        <p>Masukkan PIN yang tampil di layar fasilitator. Gunakan nama atau nama tim.</p>
+        <form id="join-form" class="form-stack">
+          <label for="join-pin">PIN room</label>
+          <input id="join-pin" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required>
+          <label for="join-name">Nama / nama tim</label>
+          <input id="join-name" autocomplete="nickname" minlength="2" maxlength="36" required>
+          <button class="button button-gold" type="submit">Gabung room</button>
+        </form>
+      </article>
+
+      <article class="card">
+        <span class="card-kicker">Fasilitator</span>
+        <h2>Buat room permainan</h2>
+        <p>Masuk dengan akun admin PeKA terverifikasi untuk mengatur sesi.</p>
+        <form id="admin-login-form" class="form-stack">
+          <label for="admin-email">Email admin</label>
+          <input id="admin-email" type="email" autocomplete="username" maxlength="254" required>
+          <label for="admin-password">Password</label>
+          <input id="admin-password" type="password" autocomplete="current-password" required>
+          <button class="button button-outline" type="submit">Masuk sebagai admin</button>
+        </form>
+      </article>
+    </section>
+
+    <section id="admin-panel" class="card hidden" aria-labelledby="admin-title">
+      <div class="section-heading">
+        <div><span class="card-kicker">Dashboard fasilitator</span><h2 id="admin-title">Atur sesi arcade</h2></div>
+        <button id="admin-signout" class="button button-quiet" type="button">Keluar</button>
+      </div>
+      <div id="room-create">
+        <div class="settings-grid">
+          <label>Durasi tiap game
+            <select id="game-duration"><option value="45">45 detik</option><option value="60" selected>60 detik</option><option value="90">90 detik</option></select>
+          </label>
+          <label>Nyawa
+            <select id="game-lives"><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option></select>
+          </label>
+          <label>Tingkat kesulitan
+            <select id="game-difficulty"><option value="easy">Santai</option><option value="normal" selected>Standar</option><option value="hard">Tantangan</option></select>
+          </label>
+        </div>
+        <h3>Urutan permainan</h3>
+        <div id="game-order-inputs" class="order-grid"></div>
+        <button id="create-room" class="button button-gold" type="button">Buat room baru</button>
+      </div>
+      <div id="admin-room" class="hidden">
+        <div class="room-banner">
+          <div><span class="card-kicker">PIN bergabung</span><strong id="room-pin" class="room-pin"></strong><span id="room-state" class="room-state"></span></div>
+          <div id="room-qr" aria-label="Kode QR bergabung"></div>
+          <a id="room-link" class="button button-quiet" href="#">Buka tautan peserta</a>
+        </div>
+        <div class="control-row">
+          <button id="admin-start" class="button button-gold" type="button">Mulai</button>
+          <button id="admin-pause" class="button button-outline" type="button">Jeda</button>
+          <button id="admin-resume" class="button button-outline" type="button">Lanjutkan</button>
+          <button id="admin-next" class="button button-outline" type="button">Game berikutnya</button>
+          <button id="admin-finish" class="button button-outline" type="button">Akhiri sesi</button>
+          <button id="admin-close" class="button button-danger" type="button">Tutup room</button>
+        </div>
+        <div class="section-heading compact-heading">
+          <div><h3>Peserta & leaderboard</h3><span id="participant-count" class="muted"></span></div>
+          <button id="export-csv" class="button button-quiet" type="button">Unduh CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>#</th><th>Nama / tim</th><th>Skor</th><th>Aksi benar</th><th>Waktu (detik)</th><th>Game selesai</th></tr></thead>
+            <tbody id="leaderboard-rows"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section id="player-panel" class="card hidden" aria-labelledby="player-title">
+      <div class="section-heading">
+        <div><span class="card-kicker">Room <b id="player-pin"></b></span><h2 id="player-title">Menunggu fasilitator</h2></div>
+        <span id="player-count" class="pill"></span>
+      </div>
+      <p id="player-message">Room akan dimulai bersama-sama saat fasilitator menekan Mulai.</p>
+      <div id="player-lobby-board" class="mini-leaderboard"></div>
+      <div id="game-wrap" class="game-wrap hidden">
+        <div class="game-topbar">
+          <span id="game-name"></span><strong id="game-timer" role="timer">00:00</strong>
+          <span id="player-score">0 poin</span><span id="player-lives">Nyawa 3</span>
+        </div>
+        <div id="canvas-frame" class="canvas-frame"><canvas id="arcade-canvas" aria-label="Area permainan interaktif"></canvas></div>
+        <div id="whack-board" class="whack-board hidden" aria-label="Pilih modus penipuan, hindari tindakan aman"></div>
+        <div id="bomb-panel" class="bomb-panel hidden">
+          <div class="bomb-art" aria-hidden="true">💣</div>
+          <p id="bomb-scenario"></p>
+          <div id="bomb-choices" class="bomb-choices"></div>
+          <p id="bomb-feedback" class="bomb-feedback" aria-live="polite"></p>
+        </div>
+        <div class="game-help"><span id="game-instructions"></span><span id="combo-message" aria-live="polite"></span></div>
+      </div>
+      <div id="final-panel" class="hidden">
+        <h2>Sesi selesai!</h2><p>Terima kasih sudah bermain dan ingat: kalau ragu, berhenti dulu.</p>
+        <div id="final-leaderboard" class="mini-leaderboard"></div>
+      </div>
+    </section>
+
+    <section class="game-list" aria-label="Lima mini-game">
+      <article><span>01</span><b>Slice the Scam</b><small>Swipe target aman</small></article>
+      <article><span>02</span><b>Destroy the Fraud</b><small>Hancurkan modus</small></article>
+      <article><span>03</span><b>Whack a Scam</b><small>Pukul, jangan salah</small></article>
+      <article><span>04</span><b>Bomb Defuser</b><small>Pilih tindakan tepat</small></article>
+      <article><span>05</span><b>Tangkap yang Aman</b><small>Gerakkan keranjang</small></article>
+    </section>
+    <footer>PeKA ARCADE • Materi edukasi pelindungan konsumen • Jangan pernah membagikan OTP, PIN, atau password.</footer>
+  </main>
+</body>
+</html>
