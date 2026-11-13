@@ -42,6 +42,15 @@ button { cursor: pointer; }
 .notice.error { color: #812d25; border-color: #efc8c2; background: #fff7f5; }
 .notice.success { color: #145b55; border-color: #c3e3da; background: #f2fbf7; }
 
+.audio-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 14px 0; padding: 13px 15px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+.audio-heading { display: grid; gap: 3px; margin-right: auto; color: var(--navy); font-size: 12px; }
+.audio-heading span { color: var(--muted); font-size: 10px; font-weight: 500; }
+.audio-toggles { display: flex; gap: 7px; }
+.audio-controls .button { min-height: 36px; padding: 7px 10px; font-size: 10px; }
+.audio-volume { display: grid; grid-template-columns: auto auto; align-items: center; gap: 3px 8px; color: #394862; font-size: 10px; font-weight: 700; }
+.audio-volume output { color: var(--muted); font-variant-numeric: tabular-nums; }
+.audio-volume input { width: 108px; height: 18px; margin: 0; accent-color: var(--teal); }
+
 .entry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .card { min-width: 0; margin-top: 16px; padding: clamp(20px, 4vw, 30px); border: 1px solid var(--line); border-radius: 16px; background: var(--white); box-shadow: 0 8px 26px #162c4b0a; }
 .card h2 { margin: 8px 0 7px; color: var(--navy); font-size: clamp(21px, 3vw, 27px); letter-spacing: -.04em; }
@@ -130,6 +139,12 @@ footer { padding: 24px 8px 8px; color: #7d899b; text-align: center; font-size: 1
   .back-link { font-size: 11px; }
   .arcade-shell { width: min(100% - 20px, 600px); padding-top: 20px; }
   .hero { padding: 27px 22px; border-radius: 15px; }
+  .audio-controls { gap: 10px; }
+  .audio-heading { flex: 1 1 100%; }
+  .audio-toggles { flex: 1 1 100%; }
+  .audio-toggles .button { flex: 1; }
+  .audio-volume { flex: 1 1 calc(50% - 8px); }
+  .audio-volume input { width: 100%; }
   .entry-grid { grid-template-columns: 1fr; gap: 0; }
   .entry-grid .card { margin-top: 10px; }
   .settings-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
