@@ -30,6 +30,25 @@
       <p>Kenali modus, pilih tindakan aman, dan tantang teman dalam lima permainan cepat.</p>
     </section>
 
+    <section class="audio-controls" aria-label="Pengaturan audio">
+      <div class="audio-heading">
+        <strong>Audio</strong>
+        <span>Suara hanya aktif setelah interaksi</span>
+      </div>
+      <div class="audio-toggles">
+        <button id="music-toggle" class="button button-outline" type="button" aria-pressed="true">Musik: ON</button>
+        <button id="effects-toggle" class="button button-outline" type="button" aria-pressed="true">Efek: ON</button>
+      </div>
+      <label class="audio-volume" for="music-volume">
+        Musik <output id="music-volume-value" for="music-volume">35%</output>
+        <input id="music-volume" type="range" min="0" max="100" value="35">
+      </label>
+      <label class="audio-volume" for="effects-volume">
+        Efek <output id="effects-volume-value" for="effects-volume">65%</output>
+        <input id="effects-volume" type="range" min="0" max="100" value="65">
+      </label>
+    </section>
+
     <p id="arcade-status" class="notice" role="status" aria-live="polite">
       Memeriksa konfigurasi layanan permainan…
     </p>
