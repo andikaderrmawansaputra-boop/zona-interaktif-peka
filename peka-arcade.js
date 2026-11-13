@@ -89,12 +89,262 @@
   let whackIndex = -1;
   let bombStep = -1;
   let bombAnsweredStep = -1;
+  const audioStorageKey = "peka-arcade-audio";
+  const audioDefaults = { musicEnabled: true, effectsEnabled: true, musicVolume: 0.35, effectsVolume: 0.65 };
+  let audioSettings = { ...audioDefaults };
+  let audioContext = null;
+  let musicGain = null;
+  let effectsGain = null;
+  let musicTimer = null;
+  let musicStep = 0;
+  let musicScene = "menu";
+  let effectVoice = null;
+  let pendingCountdown = "";
+  let pendingVictory = false;
+  let countdownTimers = [];
   let pointer = { x: 0, y: 0, down: false, lastX: 0, lastY: 0 };
   const canvas = document.getElementById("arcade-canvas");
   const canvasFrame = document.getElementById("canvas-frame");
   const ctx = canvas.getContext("2d");
   const whackBoard = document.getElementById("whack-board");
   const bombPanel = document.getElementById("bomb-panel");
+
+  function loadAudioSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(audioStorageKey) || "null");
+      if (!saved || typeof saved !== "object") return;
+      audioSettings = {
+        musicEnabled: saved.musicEnabled !== false,
+        effectsEnabled: saved.effectsEnabled !== false,
+        musicVolume: Number.isFinite(saved.musicVolume)
+          ? Math.max(0, Math.min(1, saved.musicVolume)) : audioDefaults.musicVolume,
+        effectsVolume: Number.isFinite(saved.effectsVolume)
+          ? Math.max(0, Math.min(1, saved.effectsVolume)) : audioDefaults.effectsVolume
+      };
+    } catch {
+      audioSettings = { ...audioDefaults };
+    }
+  }
+
+  function saveAudioSettings() {
+    try {
+      localStorage.setItem(audioStorageKey, JSON.stringify(audioSettings));
+    } catch {
+      setStatus("Pengaturan audio aktif untuk sesi ini, tetapi tidak dapat disimpan di perangkat.", "error");
+    }
+  }
+
+  function renderAudioSettings() {
+    const musicToggle = document.getElementById("music-toggle");
+    const effectsToggle = document.getElementById("effects-toggle");
+    musicToggle.textContent = `Musik: ${audioSettings.musicEnabled ? "ON" : "OFF"}`;
+    effectsToggle.textContent = `Efek: ${audioSettings.effectsEnabled ? "ON" : "OFF"}`;
+    musicToggle.setAttribute("aria-pressed", String(audioSettings.musicEnabled));
+    effectsToggle.setAttribute("aria-pressed", String(audioSettings.effectsEnabled));
+    document.getElementById("music-volume").value = String(Math.round(audioSettings.musicVolume * 100));
+    document.getElementById("effects-volume").value = String(Math.round(audioSettings.effectsVolume * 100));
+    document.getElementById("music-volume-value").value = `${Math.round(audioSettings.musicVolume * 100)}%`;
+    document.getElementById("effects-volume-value").value = `${Math.round(audioSettings.effectsVolume * 100)}%`;
+  }
+
+  function initializeAudioContext() {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return false;
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+      musicGain = audioContext.createGain();
+      effectsGain = audioContext.createGain();
+      musicGain.connect(audioContext.destination);
+      effectsGain.connect(audioContext.destination);
+      updateAudioGains();
+    }
+    if (audioContext.state === "suspended") audioContext.resume();
+    return true;
+  }
+
+  function updateAudioGains() {
+    if (!audioContext) return;
+    const now = audioContext.currentTime;
+    musicGain.gain.setTargetAtTime(
+      audioSettings.musicEnabled ? audioSettings.musicVolume : 0, now, 0.04
+    );
+    effectsGain.gain.setTargetAtTime(
+      audioSettings.effectsEnabled ? audioSettings.effectsVolume : 0, now, 0.025
+    );
+  }
+
+  function stopMusic() {
+    if (musicTimer) window.clearInterval(musicTimer);
+    musicTimer = null;
+  }
+
+  function startMusic() {
+    if (!audioContext || !audioSettings.musicEnabled || musicTimer) return;
+    const menuNotes = [261.63, 329.63, 392, 329.63, 293.66, 349.23, 440, 349.23];
+    const arcadeNotes = [392, 523.25, 587.33, 523.25, 440, 587.33, 659.25, 587.33];
+    const notes = musicScene === "arcade" ? arcadeNotes : menuNotes;
+    musicStep = 0;
+    const playMusicNote = () => {
+      if (!audioContext || !audioSettings.musicEnabled) return;
+      const now = audioContext.currentTime;
+      const oscillator = audioContext.createOscillator();
+      const envelope = audioContext.createGain();
+      const note = notes[musicStep % notes.length];
+      musicStep++;
+      oscillator.type = "triangle";
+      oscillator.frequency.setValueAtTime(note, now);
+      envelope.gain.setValueAtTime(0.0001, now);
+      envelope.gain.exponentialRampToValueAtTime(0.12, now + 0.025);
+      envelope.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+      oscillator.connect(envelope);
+      envelope.connect(musicGain);
+      oscillator.start(now);
+      oscillator.stop(now + 0.25);
+    };
+    playMusicNote();
+    musicTimer = window.setInterval(playMusicNote, 280);
+  }
+
+  function setMusicScene(scene) {
+    if (musicScene === scene) return;
+    musicScene = scene;
+    stopMusic();
+    startMusic();
+  }
+
+  function cancelCountdown() {
+    countdownTimers.forEach((timer) => window.clearTimeout(timer));
+    countdownTimers = [];
+    pendingCountdown = "";
+  }
+
+  function playToneSequence(notes, waveform, duration) {
+    if (!audioContext || !audioSettings.effectsEnabled || !notes.length) return;
+    const now = audioContext.currentTime;
+    if (effectVoice) {
+      try {
+        effectVoice.gain.gain.cancelScheduledValues(now);
+        effectVoice.gain.gain.setTargetAtTime(0.0001, now, 0.008);
+        effectVoice.oscillator.stop(now + 0.04);
+      } catch {
+        // The previous one-shot may already have finished.
+      }
+    }
+    const oscillator = audioContext.createOscillator();
+    const envelope = audioContext.createGain();
+    oscillator.type = waveform || "sine";
+    oscillator.connect(envelope);
+    envelope.connect(effectsGain);
+    notes.forEach((note, index) => {
+      const start = now + index * duration;
+      oscillator.frequency.setValueAtTime(note, start);
+      envelope.gain.setValueAtTime(0.0001, start);
+      envelope.gain.linearRampToValueAtTime(0.8, start + 0.012);
+      envelope.gain.exponentialRampToValueAtTime(0.0001, start + duration * 0.9);
+    });
+    const end = now + notes.length * duration;
+    oscillator.start(now);
+    oscillator.stop(end);
+    effectVoice = { oscillator, gain: envelope };
+    oscillator.onended = () => {
+      if (effectVoice && effectVoice.oscillator === oscillator) effectVoice = null;
+    };
+  }
+
+  function playAudioEffect(name, gameKey, variation) {
+    const gameNotes = {
+      slice: [784, 1174],
+      shooter: [660, 440],
+      whack: [220, 330],
+      bomb: [523, 784],
+      catch: [392, 587]
+    };
+    const profiles = {
+      score: [gameNotes[gameKey]?.[0] || 660],
+      combo: [659, 784, 988],
+      bonus: [784, 988, 1174],
+      lifeLost: [330, 220],
+      gameWin: [523, 659, 784],
+      gameLose: [330, 247, 196],
+      victory: [523, 659, 784, 1047],
+      countdown: [440],
+      go: [659, 880]
+    };
+    const waveforms = { score: "sine", combo: "triangle", bonus: "triangle", lifeLost: "sawtooth",
+      gameWin: "triangle", gameLose: "sawtooth", victory: "triangle", countdown: "sine", go: "triangle" };
+    const countdownNotes = [[659], [587], [523]];
+    const notes = name === "countdown" ? countdownNotes[variation] : profiles[name];
+    playToneSequence(notes, waveforms[name], name === "victory" ? 0.13 : 0.095);
+  }
+
+  function runCountdown(gameKey) {
+    pendingCountdown = "";
+    cancelCountdown();
+    [0, 1, 2, 3].forEach((index) => {
+      countdownTimers.push(window.setTimeout(() => {
+        playAudioEffect(index === 3 ? "go" : "countdown", gameKey, index);
+      }, index * 520));
+    });
+  }
+
+  function unlockAudio() {
+    if (!initializeAudioContext()) return;
+    startMusic();
+    if (pendingCountdown) runCountdown(pendingCountdown);
+    if (pendingVictory) {
+      pendingVictory = false;
+      playAudioEffect("victory");
+    }
+  }
+
+  function queueGameCountdown(gameKey) {
+    cancelCountdown();
+    if (audioContext && audioContext.state === "running") runCountdown(gameKey);
+    else pendingCountdown = gameKey;
+  }
+
+  function announceWinner() {
+    if (audioContext && audioContext.state === "running") playAudioEffect("victory");
+    else pendingVictory = true;
+  }
+
+  function bindAudioControls() {
+    loadAudioSettings();
+    renderAudioSettings();
+    document.addEventListener("pointerdown", (event) => {
+      if (event.target === document.getElementById("music-toggle") && audioSettings.musicEnabled) {
+        initializeAudioContext();
+      } else {
+        unlockAudio();
+      }
+    }, { capture: true, once: true });
+    document.addEventListener("keydown", unlockAudio, { capture: true, once: true });
+    document.getElementById("music-toggle").addEventListener("click", () => {
+      initializeAudioContext();
+      audioSettings.musicEnabled = !audioSettings.musicEnabled;
+      updateAudioGains();
+      if (audioSettings.musicEnabled) startMusic();
+      else stopMusic();
+      saveAudioSettings();
+      renderAudioSettings();
+    });
+    document.getElementById("effects-toggle").addEventListener("click", () => {
+      unlockAudio();
+      audioSettings.effectsEnabled = !audioSettings.effectsEnabled;
+      updateAudioGains();
+      saveAudioSettings();
+      renderAudioSettings();
+    });
+    [["music-volume", "musicVolume"], ["effects-volume", "effectsVolume"]].forEach(([id, setting]) => {
+      document.getElementById(id).addEventListener("input", (event) => {
+        unlockAudio();
+        audioSettings[setting] = Number(event.target.value) / 100;
+        updateAudioGains();
+        saveAudioSettings();
+        renderAudioSettings();
+      });
+    });
+  }
 
   function setStatus(message, type) {
     statusElement.textContent = message;
@@ -485,13 +735,16 @@
   }
 
   function applySnapshot(data, isAdmin) {
+    const previousStatus = roomState?.status;
     roomState = data.room;
     serverOffset = Date.parse(roomState.server_now) - Date.now();
+    setMusicScene(roomState.status === "running" ? "arcade" : "menu");
     if (isAdmin) renderAdminSnapshot(data);
     else renderPlayerSnapshot(data);
     if (roomState.status === "running" && !isAdmin) startCurrentGame();
     else if (roomState.status !== "running" && !isAdmin) stopGameLoop();
     if (roomState.status === "completed" && activeGame) submitScore(true);
+    if (roomState.status === "completed" && previousStatus !== "completed") announceWinner();
     scheduleRoomTransition();
   }
 
@@ -627,7 +880,7 @@
         startedAt: Date.now() + serverOffset,
         width: 0, height: 0, targets: [], bullets: [], lastSpawn: 0,
         lastShot: 0, playerX: canvas.clientWidth / 2, lastSubmit: "",
-        fragments: [], outOfLives: false
+        fragments: [], outOfLives: false, finished: false
       };
       lastRenderedGameIndex = roomState.game_index;
       lastWhackTime = 0;
@@ -637,6 +890,7 @@
       setupGameSurface(key);
       configureCanvas();
       document.getElementById("game-instructions").textContent = instructionsFor(key);
+      queueGameCountdown(key);
     }
     if (!animationId) {
       lastFrameTime = 0;
@@ -676,7 +930,14 @@
     if (animationId) window.cancelAnimationFrame(animationId);
     animationId = 0;
     pointer.down = false;
+    if (roomState?.status !== "running") cancelCountdown();
     if (activeGame && roomState?.status !== "running") submitScore(true);
+  }
+
+  function finishGame(won) {
+    if (!activeGame || activeGame.finished) return;
+    activeGame.finished = true;
+    playAudioEffect(won ? "gameWin" : "gameLose", activeGame.key);
   }
 
   function remainingGameMs() {
@@ -702,6 +963,7 @@
       else updateCanvasGame(delta, now);
     }
     if (remaining <= 0) {
+      finishGame(activeGame.score > 0 || activeGame.correct > 0);
       submitScore(true);
       return;
     }
@@ -872,11 +1134,16 @@
       activeGame.combo++;
       activeGame.correct++;
       activeGame.score += 10 + Math.min(10, Math.max(0, activeGame.combo - 1));
+      const effect = activeGame.combo >= 5 && activeGame.combo % 5 === 0
+        ? "bonus" : activeGame.combo >= 3 && activeGame.combo % 3 === 0 ? "combo" : "score";
+      playAudioEffect(effect, activeGame.key);
       document.getElementById("combo-message").textContent =
         activeGame.combo >= 3 ? `COMBO x${activeGame.combo}!` : "";
     } else {
       activeGame.combo = 0;
       activeGame.lives = Math.max(0, activeGame.lives - 1);
+      if (activeGame.lives === 0) finishGame(false);
+      else playAudioEffect("lifeLost", activeGame.key);
       document.getElementById("combo-message").textContent = effect === "shooter"
         ? "Jangan tembak transaksi aman!" : "Waspada, itu bukan target aman!";
     }
@@ -1077,6 +1344,7 @@
   }
 
   function bindEvents() {
+    bindAudioControls();
     adminForm.addEventListener("submit", signInAdmin);
     joinForm.addEventListener("submit", joinRoom);
     document.getElementById("create-room").addEventListener("click", createRoom);
@@ -1093,7 +1361,11 @@
     canvas.addEventListener("pointerup", handlePointerUp);
     canvas.addEventListener("pointercancel", handlePointerUp);
     window.addEventListener("resize", configureCanvas);
-    window.addEventListener("pagehide", stopGameLoop);
+    window.addEventListener("pagehide", () => {
+      stopGameLoop();
+      stopMusic();
+      cancelCountdown();
+    });
     document.getElementById("join-pin").addEventListener("input", (event) => {
       event.target.value = event.target.value.replace(/\D/g, "").slice(0, 6);
     });
@@ -1116,7 +1388,9 @@
       setStatus(!window.supabase?.createClient
         ? "Pustaka Supabase tidak dapat dimuat. Periksa jaringan, lalu muat ulang halaman."
         : "Konfigurasi Supabase belum valid; room dan skor belum dapat digunakan.", "error");
-      document.querySelectorAll("button, input").forEach((element) => { element.disabled = true; });
+      document.querySelectorAll("button, input").forEach((element) => {
+        if (!element.closest(".audio-controls")) element.disabled = true;
+      });
       return;
     }
     try {
